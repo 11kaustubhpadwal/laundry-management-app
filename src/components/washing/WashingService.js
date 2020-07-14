@@ -7,9 +7,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Washing from "../../assets/washing.svg";
-import Drying from "../../assets/drying.svg";
-import Bleaching from "../../assets/bleaching.svg";
+import Medium from "../../assets/15kg.svg";
+import Small from "../../assets/25kg.svg";
+import Large from "../../assets/35kg.svg";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Services = () => {
+const WashingService = () => {
   const classes = useStyles();
 
   return (
@@ -37,20 +37,20 @@ const Services = () => {
           <CardActionArea>
             <CardContent>
               <img
-                src={Washing}
-                alt="Washing"
+                src={Small}
+                alt="15 kg"
                 style={{ width: "10rem", margin: "10px" }}
               ></img>
               <Typography gutterBottom variant="h5" component="h2">
-                Washing
+                Quantity - 15 kg
               </Typography>
               <Typography variant="body2" color="textPrimary" component="p">
-                Clothes washing from 17 PLN (20kg).
+                Price - 17 PLN.
               </Typography>
             </CardContent>
           </CardActionArea>
           <CardActions style={{ justifyContent: "center" }}>
-            <Link to="/washing" style={{ textDecoration: "none" }}>
+            <Link to="/washing/option1" style={{ textDecoration: "none" }}>
               <Button size="small" color="black">
                 choose
               </Button>
@@ -63,20 +63,20 @@ const Services = () => {
           <CardActionArea>
             <CardContent>
               <img
-                src={Drying}
-                alt="Drying"
+                src={Medium}
+                alt="25 kg"
                 style={{ width: "10rem", margin: "10px" }}
               ></img>
               <Typography gutterBottom variant="h5" component="h2">
-                Drying
+                Quantity - 25 kg
               </Typography>
               <Typography variant="body2" color="textPrimary" component="p">
-                Clothes drying from 7 PLN (20kg).
+                Price - 27 PLN
               </Typography>
             </CardContent>
           </CardActionArea>
           <CardActions style={{ justifyContent: "center" }}>
-            <Link to="/drying" style={{ textDecoration: "none" }}>
+            <Link to="/washing/option2" style={{ textDecoration: "none" }}>
               <Button size="small" color="black">
                 choose
               </Button>
@@ -89,20 +89,20 @@ const Services = () => {
           <CardActionArea>
             <CardContent>
               <img
-                src={Bleaching}
-                alt="Bleaching"
+                src={Large}
+                alt="35 kg"
                 style={{ width: "10rem", margin: "10px" }}
               ></img>
               <Typography gutterBottom variant="h5" component="h2">
-                Bleaching
+                Quantity - 35 kg
               </Typography>
               <Typography variant="body2" color="textPrimary" component="p">
-                Clothes bleaching from 5 PLN.
+                Price - 37 PLN
               </Typography>
             </CardContent>
           </CardActionArea>
           <CardActions style={{ justifyContent: "center" }}>
-            <Link to="/bleaching" style={{ textDecoration: "none" }}>
+            <Link to="/washing/option3" style={{ textDecoration: "none" }}>
               <Button size="small" color="black">
                 choose
               </Button>
@@ -114,4 +114,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default WashingService;

@@ -4,6 +4,9 @@ import Home from "./components/routes/Home";
 import About from "./components/routes/About";
 import Login from "./components/routes/Login";
 import Register from "./components/routes/Register";
+import Washing from "./components/routes/Washing";
+import Drying from "./components/routes/Drying";
+import Bleaching from "./components/routes/Bleaching";
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
           <Route exact path="/about" component={About} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/washing" component={Washing} />
+          <Route exact path="/drying" component={Drying} />
+          <Route exact path="/bleaching" component={Bleaching} />
         </Switch>
       </div>
     </Router>
