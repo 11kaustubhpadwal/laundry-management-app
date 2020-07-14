@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 280,
     textAlign: "center",
-    marginBottom: "50px",
+    marginBottom: "60px",
     marginTop: "50px",
   },
 });

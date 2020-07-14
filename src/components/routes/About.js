@@ -6,15 +6,13 @@ import Information from "../about/Information";
 
 const About = () => {
   return (
-    <div>
-      <Fragment>
-        <Container maxWidth="lg">
-          <Navbar />
-          <Information />
-          <Footer />
-        </Container>
-      </Fragment>
-    </div>
+    <Fragment>
+      <Container maxWidth="lg">
+        <Navbar />
+        <Information />
+        <Footer />
+      </Container>
+    </Fragment>
   );
 };
 
