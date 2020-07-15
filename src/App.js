@@ -7,6 +7,7 @@ import Register from "./components/routes/Register";
 import Washing from "./components/routes/Washing";
 import Drying from "./components/routes/Drying";
 import Bleaching from "./components/routes/Bleaching";
+import Profile from "./components/routes/Profile";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/washing" component={Washing} />
           <Route exact path="/drying" component={Drying} />
           <Route exact path="/bleaching" component={Bleaching} />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </div>
     </Router>
