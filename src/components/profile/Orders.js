@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useState, forwardRef } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
 import OrdersList from "./OrdersList";
+import NewOrderForm from "./NewOrderForm";
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const SimpleDialog = (props) => {
+  const { onClose, open } = props;
+
+  const handleClose = () => {
+    onClose();
+  };
+
+  return (
+    <Dialog TransitionComponent={Transition} onClose={handleClose} open={open}>
+      <NewOrderForm handleClose={handleClose} />
+    </Dialog>
+  );
+};
+
+SimpleDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
 
 const useStyles = makeStyles({
   root: {
@@ -23,8 +50,18 @@ const useStyles = makeStyles({
   },
 });
 
-const Orders = () => {
+const Orders = (props) => {
   const classes = useStyles();
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+  };
 
   return (
     <div
@@ -40,7 +77,11 @@ const Orders = () => {
           <Typography variant="h5">
             All orders
             <span style={{ float: "right" }}>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleClickOpen}
+              >
                 Place new order
               </Button>
             </span>
@@ -48,6 +89,7 @@ const Orders = () => {
         </CardContent>
       </Card>
       <OrdersList />
+      <SimpleDialog open={open} onClose={handleClose} />
     </div>
   );
 };
