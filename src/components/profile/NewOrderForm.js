@@ -61,11 +61,11 @@ const NewOrderForm = (props) => {
       </Button>
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         style={{ marginTop: "20px", marginLeft: "20px" }}
         onClick={props.handleClose}
       >
-        Close
+        Cancel
       </Button>
     </form>
   );

@@ -1,37 +1,11 @@
-import React, { useState, forwardRef } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import Slide from "@material-ui/core/Slide";
 import OrdersList from "./OrdersList";
-import NewOrderForm from "./NewOrderForm";
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
-const SimpleDialog = (props) => {
-  const { onClose, open } = props;
-
-  const handleClose = () => {
-    onClose();
-  };
-
-  return (
-    <Dialog TransitionComponent={Transition} onClose={handleClose} open={open}>
-      <NewOrderForm handleClose={handleClose} />
-    </Dialog>
-  );
-};
-
-SimpleDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-};
+import FormPopup from "./FormPopup";
 
 const useStyles = makeStyles({
   root: {
@@ -89,7 +63,7 @@ const Orders = (props) => {
         </CardContent>
       </Card>
       <OrdersList />
-      <SimpleDialog open={open} onClose={handleClose} />
+      <FormPopup open={open} onClose={handleClose} />
     </div>
   );
 };
