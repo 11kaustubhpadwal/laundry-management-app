@@ -5,9 +5,9 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
-      width: "25ch",
-    },
+    width: "22rem",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 }));
 
@@ -25,12 +25,11 @@ const LoginForm = () => {
           style={{
             marginTop: "40px",
             marginBottom: "20px",
-            marginLeft: "auto",
-            marginRight: "auto",
           }}
         >
           <TextField
             required
+            fullWidth
             id="standard-basic"
             label="Email"
             variant="outlined"
@@ -40,12 +39,11 @@ const LoginForm = () => {
           style={{
             marginTop: "20px",
             marginBottom: "20px",
-            marginLeft: "auto",
-            marginRight: "auto",
           }}
         >
           <TextField
             required
+            fullWidth
             id="standard-basic"
             label="Password"
             variant="outlined"
