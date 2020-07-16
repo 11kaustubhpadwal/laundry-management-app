@@ -8,6 +8,12 @@ const useStyles = makeStyles((theme) => ({
     width: "22rem",
     marginLeft: "auto",
     marginRight: "auto",
+    [theme.breakpoints.down("xs")]: {
+      width: "15rem",
+    },
+  },
+  button: {
+    width: "8rem",
   },
 }));
 
@@ -80,7 +86,8 @@ const RegistrationForm = () => {
         <Button
           variant="contained"
           color="primary"
-          style={{ width: "8rem", margin: "20px" }}
+          className={classes.button}
+          style={{ margin: "20px" }}
         >
           Register
         </Button>
