@@ -5,9 +5,12 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
+    [theme.breakpoints.down("xs")]: {
+      minWidth: "12rem",
+    },
   },
   bullet: {
     display: "inline-block",
@@ -20,7 +23,21 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-});
+  button: {
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "15px",
+      marginTop: "40px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "6rem",
+    },
+  },
+  card: {
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "20px",
+    },
+  },
+}));
 
 const PersonalInfo = () => {
   const classes = useStyles();
@@ -42,13 +59,17 @@ const PersonalInfo = () => {
           <Typography variant="h5">
             Personal information{" "}
             <span style={{ float: "right" }}>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
                 Edit profile
               </Button>
             </span>
           </Typography>
           <br />
-          <Typography>First Name Last Name</Typography>
+          <Typography className={classes.card}>First Name Last Name</Typography>
           <br />
           <Typography>Email ID</Typography>
         </CardContent>

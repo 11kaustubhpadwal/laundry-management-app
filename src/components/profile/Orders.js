@@ -7,9 +7,12 @@ import Button from "@material-ui/core/Button";
 import OrdersList from "./OrdersList";
 import FormPopup from "./FormPopup";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
+    [theme.breakpoints.down("xs")]: {
+      minWidth: "12rem",
+    },
   },
   bullet: {
     display: "inline-block",
@@ -22,7 +25,14 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-});
+  button: {
+    [theme.breakpoints.down("xs")]: {
+      width: "2rem",
+      marginLeft: "5px",
+      marginBottom: "10px",
+    },
+  },
+}));
 
 const Orders = (props) => {
   const classes = useStyles();
@@ -55,6 +65,7 @@ const Orders = (props) => {
                 variant="contained"
                 color="primary"
                 onClick={handleClickOpen}
+                className={classes.button}
               >
                 Place new order
               </Button>
