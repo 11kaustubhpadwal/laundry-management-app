@@ -8,6 +8,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import PaymentIcon from "@material-ui/icons/Payment";
+import MoneyIcon from "@material-ui/icons/Money";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -224,6 +226,7 @@ const NewOrderForm = (props) => {
         <FormControlLabel
           control={
             <Checkbox
+              icon={<PaymentIcon />}
               checked={cardPayment}
               onChange={handlePaymentSelection}
               name="card"
@@ -231,10 +234,11 @@ const NewOrderForm = (props) => {
             />
           }
           label="Card on delivery"
-        />{" "}
+        />
         <FormControlLabel
           control={
             <Checkbox
+              icon={<MoneyIcon />}
               checked={cashPayment}
               onChange={handlePaymentSelection}
               name="cash"
