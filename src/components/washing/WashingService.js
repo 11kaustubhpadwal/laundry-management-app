@@ -13,11 +13,11 @@ import Large from "../../assets/35kg.svg";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 280,
+  services: {
     textAlign: "center",
-    marginBottom: "60px",
-    marginTop: "50px",
+  },
+  root: {
+    maxWidth: "20rem",
   },
 });
 
@@ -27,13 +27,17 @@ const WashingService = () => {
   return (
     <Grid
       container
-      spacing={1}
+      spacing={4}
       direction="row"
       justify="center"
       alignItems="center"
+      style={{
+        marginBottom: "60px",
+        marginTop: "50px",
+      }}
     >
-      <Grid item xs={3}>
-        <Card className={classes.root}>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={classes.root}>
+        <Card className={classes.services}>
           <CardActionArea>
             <CardContent>
               <img
@@ -58,8 +62,8 @@ const WashingService = () => {
           </CardActions>
         </Card>
       </Grid>
-      <Grid item xs={3}>
-        <Card className={classes.root}>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={classes.root}>
+        <Card className={classes.services}>
           <CardActionArea>
             <CardContent>
               <img
@@ -84,8 +88,8 @@ const WashingService = () => {
           </CardActions>
         </Card>
       </Grid>
-      <Grid item xs={3}>
-        <Card className={classes.root}>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={classes.root}>
+        <Card className={classes.services}>
           <CardActionArea>
             <CardContent>
               <img

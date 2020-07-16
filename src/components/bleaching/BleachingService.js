@@ -11,11 +11,11 @@ import BleachingImage from "../../assets/bleachingService.svg";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 280,
+  services: {
     textAlign: "center",
-    marginBottom: "60px",
-    marginTop: "50px",
+  },
+  root: {
+    maxWidth: "20rem",
   },
 });
 
@@ -29,9 +29,13 @@ const BleachingService = () => {
       direction="row"
       justify="center"
       alignItems="center"
+      style={{
+        marginBottom: "60px",
+        marginTop: "50px",
+      }}
     >
-      <Grid item xs={3}>
-        <Card className={classes.root}>
+      <Grid item xs={12} sm={12} md={12} lg={12} className={classes.root}>
+        <Card className={classes.services}>
           <CardActionArea>
             <CardContent>
               <img
