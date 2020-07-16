@@ -36,16 +36,22 @@ const NewOrderForm = (props) => {
   const [clothes, setClothes] = useState("");
   const [drying, setDrying] = useState(false);
   const [dryingQuantity, setDryingQuantity] = useState("");
+  const [disableSelection, setDisableSelection] = useState(false);
+  const [cardPayment, setCardPayment] = useState(false);
+  const [cashPayment, setCashPayment] = useState(false);
   const [finalAmount, setFinalAmount] = useState(0);
 
   const handleServiceChange = (event) => {
     if (event.target.value === "washing") {
       setWashing(true);
       setBleaching(false);
+      setDisableSelection(false);
     }
     if (event.target.value === "bleaching") {
       setWashing(false);
       setBleaching(true);
+      setDisableSelection(true);
+      setFinalAmount(0);
     }
 
     setRequiredService(event.target.value);
@@ -58,7 +64,7 @@ const NewOrderForm = (props) => {
 
   const handleClothesChange = (event) => {
     setClothes(event.target.value);
-    setFinalAmount(event.target.value * 5 + dryingQuantity);
+    setFinalAmount(event.target.value * 5);
   };
 
   const handleDryingChange = () => {
@@ -74,7 +80,19 @@ const NewOrderForm = (props) => {
 
   const handleDryingQuantityChange = (event) => {
     setDryingQuantity(event.target.value);
+
     setFinalAmount(event.target.value + quantity);
+  };
+
+  const handlePaymentSelection = (event) => {
+    if (event.target.name === "card") {
+      setCardPayment(true);
+      setCashPayment(false);
+    }
+    if (event.target.name === "cash") {
+      setCardPayment(false);
+      setCashPayment(true);
+    }
   };
 
   return (
@@ -132,17 +150,32 @@ const NewOrderForm = (props) => {
         )}
         <div style={{ marginTop: "30px" }}>
           <p>Please select if you want the optional drying service - </p>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={drying}
-                onChange={handleDryingChange}
-                name="drying"
-                color="primary"
-              />
-            }
-            label="Drying"
-          />
+          {disableSelection ? (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  disabled
+                  checked={drying}
+                  onChange={handleDryingChange}
+                  name="drying"
+                  color="primary"
+                />
+              }
+              label="Drying"
+            />
+          ) : (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={drying}
+                  onChange={handleDryingChange}
+                  name="drying"
+                  color="primary"
+                />
+              }
+              label="Drying"
+            />
+          )}
         </div>
         {drying && (
           <Fragment>
@@ -184,6 +217,31 @@ const NewOrderForm = (props) => {
           multiline
           rows={4}
           variant="outlined"
+        />
+      </div>
+      <div style={{ marginTop: "30px" }}>
+        <p>Please select a payment method -</p>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={cardPayment}
+              onChange={handlePaymentSelection}
+              name="card"
+              color="primary"
+            />
+          }
+          label="Card on delivery"
+        />{" "}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={cashPayment}
+              onChange={handlePaymentSelection}
+              name="cash"
+              color="primary"
+            />
+          }
+          label="Cash on delivery"
         />
       </div>
       <div style={{ marginTop: "30px" }}>
