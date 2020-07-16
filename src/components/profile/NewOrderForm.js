@@ -53,22 +53,28 @@ const NewOrderForm = (props) => {
 
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);
+    setFinalAmount(event.target.value + dryingQuantity);
   };
 
   const handleClothesChange = (event) => {
     setClothes(event.target.value);
+    setFinalAmount(event.target.value * 5 + dryingQuantity);
   };
 
   const handleDryingChange = () => {
     if (!drying) {
       setDrying(true);
+      setFinalAmount(finalAmount + dryingQuantity);
     } else {
       setDrying(false);
+      setFinalAmount(finalAmount - dryingQuantity);
+      setDryingQuantity(0);
     }
   };
 
   const handleDryingQuantityChange = (event) => {
     setDryingQuantity(event.target.value);
+    setFinalAmount(event.target.value + quantity);
   };
 
   return (
