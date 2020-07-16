@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +21,55 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: 200,
   },
+  formControl: {
+    minWidth: 120,
+  },
 }));
 
 const NewOrderForm = (props) => {
   const classes = useStyles();
+
+  const [requiredService, setRequiredService] = useState("");
+  const [washing, setWashing] = useState(false);
+  const [bleaching, setBleaching] = useState(false);
+  const [quantity, setQuantity] = useState("");
+  const [clothes, setClothes] = useState("");
+  const [drying, setDrying] = useState(false);
+  const [dryingQuantity, setDryingQuantity] = useState("");
+  const [finalAmount, setFinalAmount] = useState(0);
+
+  const handleServiceChange = (event) => {
+    if (event.target.value === "washing") {
+      setWashing(true);
+      setBleaching(false);
+    }
+    if (event.target.value === "bleaching") {
+      setWashing(false);
+      setBleaching(true);
+    }
+
+    setRequiredService(event.target.value);
+  };
+
+  const handleQuantityChange = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleClothesChange = (event) => {
+    setClothes(event.target.value);
+  };
+
+  const handleDryingChange = () => {
+    if (!drying) {
+      setDrying(true);
+    } else {
+      setDrying(false);
+    }
+  };
+
+  const handleDryingQuantityChange = (event) => {
+    setDryingQuantity(event.target.value);
+  };
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -30,6 +81,79 @@ const NewOrderForm = (props) => {
           style={{ marginRight: "15px" }}
         />
         <TextField required label="Last name" />
+      </div>
+      <div style={{ marginTop: "30px" }}>
+        <p>Please select a service - </p>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel>Service *</InputLabel>
+          <Select
+            value={requiredService}
+            onChange={handleServiceChange}
+            label="Service"
+          >
+            <MenuItem value={"washing"}>Washing</MenuItem>
+            <MenuItem value={"bleaching"}>Bleaching</MenuItem>
+          </Select>
+        </FormControl>
+        {washing && (
+          <Fragment>
+            <p>Please select quantity - </p>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel>Quantity *</InputLabel>
+              <Select
+                value={quantity}
+                onChange={handleQuantityChange}
+                label="Quantity"
+              >
+                <MenuItem value={17}>15 kg</MenuItem>
+                <MenuItem value={27}>25 kg</MenuItem>
+                <MenuItem value={37}>35 kg</MenuItem>
+              </Select>
+            </FormControl>
+          </Fragment>
+        )}
+        {bleaching && (
+          <Fragment>
+            <p>Please enter the number of clothes - </p>
+            <TextField
+              value={clothes}
+              onChange={handleClothesChange}
+              required
+              id="standard-basic"
+              label="Number of clothes"
+            />
+          </Fragment>
+        )}
+        <div style={{ marginTop: "30px" }}>
+          <p>Please select if you want the optional drying service - </p>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={drying}
+                onChange={handleDryingChange}
+                name="drying"
+                color="primary"
+              />
+            }
+            label="Drying"
+          />
+        </div>
+        {drying && (
+          <Fragment>
+            <p>Please select quantity for drying clothes - </p>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel>Quantity *</InputLabel>
+              <Select
+                value={dryingQuantity}
+                onChange={handleDryingQuantityChange}
+                label="Quantity"
+              >
+                <MenuItem value={7}>15 kg</MenuItem>
+                <MenuItem value={14}>25 kg</MenuItem>
+              </Select>
+            </FormControl>
+          </Fragment>
+        )}
       </div>
       <div style={{ marginTop: "30px" }}>
         <p>Please select a date and time for pickup - </p>
@@ -55,6 +179,11 @@ const NewOrderForm = (props) => {
           rows={4}
           variant="outlined"
         />
+      </div>
+      <div style={{ marginTop: "30px" }}>
+        <p>
+          <strong>Total - {finalAmount} PLN</strong>
+        </p>
       </div>
       <Button variant="contained" color="primary" style={{ marginTop: "20px" }}>
         Submit
