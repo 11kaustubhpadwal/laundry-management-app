@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
 import BleachingService from "../bleaching/BleachingService";
+import GeneralInstruction from "../common/GeneralInstruction";
 
 const Bleaching = () => {
   return (
@@ -18,6 +19,7 @@ const Bleaching = () => {
             clothes.
           </h3>
           <BleachingService />
+          <GeneralInstruction />
         </div>
       </div>
       <Footer />

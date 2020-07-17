@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
 import DryingService from "../drying/DryingService";
+import GeneralInstruction from "../common/GeneralInstruction";
 
 const Drying = () => {
   return (
@@ -15,6 +16,7 @@ const Drying = () => {
         <div>
           <h3>The following options for drying clothes are available - </h3>
           <DryingService />
+          <GeneralInstruction />
         </div>
       </div>
       <Footer />

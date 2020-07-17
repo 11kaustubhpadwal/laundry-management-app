@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
 import WashingService from "../washing/WashingService";
+import GeneralInstruction from "../common/GeneralInstruction";
 
 const Washing = () => {
   return (
@@ -15,6 +16,7 @@ const Washing = () => {
         <div>
           <h3>The following options for washing clothes are available - </h3>
           <WashingService />
+          <GeneralInstruction />
         </div>
       </div>
       <Footer />
