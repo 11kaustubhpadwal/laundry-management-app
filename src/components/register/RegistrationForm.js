@@ -36,6 +36,8 @@ const RegistrationForm = () => {
           <TextField
             required
             fullWidth
+            inputProps={{ minLength: 2, maxLength: 12 }}
+            type="text"
             id="outlined-required"
             label="First Name"
             variant="outlined"
@@ -50,6 +52,8 @@ const RegistrationForm = () => {
           <TextField
             required
             fullWidth
+            inputProps={{ minLength: 2, maxLength: 12 }}
+            type="text"
             id="standard-basic"
             label="Last Name"
             variant="outlined"
@@ -64,6 +68,7 @@ const RegistrationForm = () => {
           <TextField
             required
             fullWidth
+            type="email"
             id="standard-basic"
             label="Email"
             variant="outlined"
@@ -78,6 +83,8 @@ const RegistrationForm = () => {
           <TextField
             required
             fullWidth
+            inputProps={{ minLength: 8, maxLength: 20 }}
+            type="password"
             id="standard-basic"
             label="Password"
             variant="outlined"

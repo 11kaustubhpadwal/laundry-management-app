@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
 const NewOrderForm = (props) => {
   const classes = useStyles();
 
-  const [requiredService, setRequiredService] = useState("");
+  const [requiredService, setRequiredService] = useState(null);
   const [washing, setWashing] = useState(false);
   const [bleaching, setBleaching] = useState(false);
-  const [quantity, setQuantity] = useState("");
-  const [clothes, setClothes] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [clothes, setClothes] = useState(0);
   const [drying, setDrying] = useState(false);
-  const [dryingQuantity, setDryingQuantity] = useState("");
+  const [dryingQuantity, setDryingQuantity] = useState(0);
   const [disableSelection, setDisableSelection] = useState(false);
   const [cardPayment, setCardPayment] = useState(false);
   const [cashPayment, setCashPayment] = useState(false);

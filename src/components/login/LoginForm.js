@@ -36,6 +36,7 @@ const LoginForm = () => {
           <TextField
             required
             fullWidth
+            type="email"
             id="standard-basic"
             label="Email"
             variant="outlined"
@@ -50,6 +51,8 @@ const LoginForm = () => {
           <TextField
             required
             fullWidth
+            inputProps={{ minLength: 8, maxLength: 20 }}
+            type="password"
             id="standard-basic"
             label="Password"
             variant="outlined"
