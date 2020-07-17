@@ -100,7 +100,7 @@ const NewOrderForm = (props) => {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
-        <p>Please enter your personal details - </p>
+        <p style={{ fontWeight: 600 }}>Please enter your personal details - </p>
         <TextField
           required
           label="First name"
@@ -109,7 +109,7 @@ const NewOrderForm = (props) => {
         <TextField required label="Last name" />
       </div>
       <div style={{ marginTop: "30px" }}>
-        <p>Please select a service - </p>
+        <p style={{ fontWeight: 600 }}>Please select a service - </p>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel>Service *</InputLabel>
           <Select
@@ -123,7 +123,7 @@ const NewOrderForm = (props) => {
         </FormControl>
         {washing && (
           <Fragment>
-            <p>Please select quantity - </p>
+            <p style={{ fontWeight: 600 }}>Please select quantity - </p>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>Quantity *</InputLabel>
               <Select
@@ -140,7 +140,9 @@ const NewOrderForm = (props) => {
         )}
         {bleaching && (
           <Fragment>
-            <p>Please enter the number of clothes - </p>
+            <p style={{ fontWeight: 600 }}>
+              Please enter the number of clothes -{" "}
+            </p>
             <TextField
               value={clothes}
               onChange={handleClothesChange}
@@ -151,7 +153,9 @@ const NewOrderForm = (props) => {
           </Fragment>
         )}
         <div style={{ marginTop: "30px" }}>
-          <p>Please select if you want the optional drying service - </p>
+          <p style={{ fontWeight: 600 }}>
+            Please select if you want the optional drying service -{" "}
+          </p>
           {disableSelection ? (
             <FormControlLabel
               control={
@@ -181,7 +185,9 @@ const NewOrderForm = (props) => {
         </div>
         {drying && (
           <Fragment>
-            <p>Please select quantity for drying clothes - </p>
+            <p style={{ fontWeight: 600 }}>
+              Please select quantity for drying clothes -{" "}
+            </p>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>Quantity *</InputLabel>
               <Select
@@ -197,7 +203,9 @@ const NewOrderForm = (props) => {
         )}
       </div>
       <div style={{ marginTop: "30px" }}>
-        <p>Please select a date and time for pickup - </p>
+        <p style={{ fontWeight: 600 }}>
+          Please select a date and time for pickup -{" "}
+        </p>
         <TextField
           id="datetime-local"
           required
@@ -211,7 +219,9 @@ const NewOrderForm = (props) => {
         />
       </div>
       <div style={{ marginTop: "30px" }}>
-        <p>Please enter your address for pickup and delivery - </p>
+        <p style={{ fontWeight: 600 }}>
+          Please enter your address for pickup and delivery -{" "}
+        </p>
         <TextField
           required
           fullWidth
@@ -222,10 +232,11 @@ const NewOrderForm = (props) => {
         />
       </div>
       <div style={{ marginTop: "30px" }}>
-        <p>Please select a payment method -</p>
+        <p style={{ fontWeight: 600 }}>Please select a payment method -</p>
         <FormControlLabel
           control={
             <Checkbox
+              required
               icon={<PaymentIcon />}
               checked={cardPayment}
               onChange={handlePaymentSelection}
@@ -238,6 +249,7 @@ const NewOrderForm = (props) => {
         <FormControlLabel
           control={
             <Checkbox
+              required
               icon={<MoneyIcon />}
               checked={cashPayment}
               onChange={handlePaymentSelection}

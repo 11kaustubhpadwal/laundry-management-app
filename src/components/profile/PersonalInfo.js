@@ -110,7 +110,11 @@ const PersonalInfo = () => {
             </Typography>
           )}
           {edit && (
-            <form className={classes.root} autoComplete="off">
+            <form
+              className={classes.root}
+              autoComplete="off"
+              style={{ marginBottom: "15px" }}
+            >
               <TextField
                 id="standard-basic"
                 label="First name"
