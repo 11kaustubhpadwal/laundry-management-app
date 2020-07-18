@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "26rem",
     margin: theme.spacing(4),
+    [theme.breakpoints.down("xs")]: {
+      width: "23rem",
+    },
   },
   container: {
     display: "flex",
