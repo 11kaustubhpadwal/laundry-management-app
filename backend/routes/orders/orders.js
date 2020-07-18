@@ -89,27 +89,4 @@ router.post(
   }
 );
 
-// @route       PUT /api/orders/:orderID
-// @desc        Cancel an order
-// @access      Private
-router.put("/:orderID", auth, async (req, res) => {
-  try {
-    let order = await Order.findById(req.params.orderID);
-
-    if (!order) {
-      res.status(400).json({ msg: "Order not found." });
-    }
-
-    // order = await Order.findByIdAndUpdate(
-    //   req.params.userID,
-    //   { $set: { orderStatus: "Cancelled" } },
-    //   { new: false }
-    // );
-
-    res.json(order);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 module.exports = router;
