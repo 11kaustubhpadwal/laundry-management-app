@@ -76,4 +76,44 @@ router.post(
   }
 );
 
+// @route       PATCH /api/users
+// @desc        Edit personal information
+// @access      Private
+router.patch(
+  "/",
+  [
+    auth,
+    [
+      check("firstName", "Please enter your first name.").notEmpty(),
+      check("lastName", "Please enter your last name.").notEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { firstName, lastName } = req.body;
+
+    try {
+      let user = await User.findById(req.user.id);
+
+      if (!user) {
+        res.status(400).json({ msg: "User not found." });
+      } else {
+        user = await User.findByIdAndUpdate(
+          req.user.id,
+          { $set: { firstName: firstName, lastName: lastName } },
+          { new: true }
+        );
+
+        res.json(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 module.exports = router;

@@ -89,4 +89,27 @@ router.post(
   }
 );
 
+// @route       PATCH /api/orders/:orderID
+// @desc        Cancel an order
+// @access      Private
+router.patch("/:orderID", auth, async (req, res) => {
+  try {
+    let order = await Order.findById(req.params.orderID);
+
+    if (!order) {
+      res.status(400).json({ msg: "Order not found." });
+    } else {
+      order = await Order.findByIdAndUpdate(
+        req.params.orderID,
+        { $set: { orderStatus: "Cancelled" } },
+        { new: true }
+      );
+
+      res.json(order);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;
