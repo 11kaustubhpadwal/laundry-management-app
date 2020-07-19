@@ -33,7 +33,7 @@ const RegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     setFormData({ firstName: "", lastName: "", email: "", password: "" });
   };
 

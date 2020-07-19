@@ -53,6 +53,22 @@ const PersonalInfo = () => {
     setEdit(false);
   };
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  const handleInputChange = (prop) => (event) => {
+    setFormData({ ...formData, [prop]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // console.log(formData);
+    setFormData({ firstName: "", lastName: "" });
+    handleCancelClick();
+  };
+
   return (
     <div
       style={{
@@ -85,7 +101,7 @@ const PersonalInfo = () => {
                   variant="contained"
                   color="primary"
                   className={classes.button}
-                  onClick={handleClick}
+                  onClick={handleSubmit}
                 >
                   Save changes
                 </Button>
@@ -119,12 +135,16 @@ const PersonalInfo = () => {
                 id="standard-basic"
                 label="First name"
                 inputProps={{ minLength: 2, maxLength: 12 }}
+                value={formData.firstName}
+                onChange={handleInputChange("firstName")}
               />
               <TextField
                 id="standard-basic"
                 label="Last name"
                 inputProps={{ minLength: 2, maxLength: 12 }}
                 style={{ marginLeft: "15px" }}
+                value={formData.lastName}
+                onChange={handleInputChange("lastName")}
               />
             </form>
           )}

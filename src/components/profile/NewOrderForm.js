@@ -100,8 +100,14 @@ const NewOrderForm = (props) => {
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // console.log(finalAmount);
+    props.handleClose();
+  };
+
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className={classes.root} autoComplete="off" onSubmit={handleSubmit}>
       <div>
         <p style={{ fontWeight: 600 }}>Please enter your personal details - </p>
         <TextField
@@ -269,7 +275,12 @@ const NewOrderForm = (props) => {
           <strong>Total - {finalAmount} PLN</strong>
         </p>
       </div>
-      <Button variant="contained" color="primary" style={{ marginTop: "20px" }}>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ marginTop: "20px" }}
+        type="submit"
+      >
         Submit
       </Button>
       <Button

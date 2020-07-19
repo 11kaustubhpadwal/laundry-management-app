@@ -85,8 +85,8 @@ const OrdersList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
+            {rows.map((row, index) => (
+              <TableRow key={index}>
                 <TableCell>{row.orderNumber}</TableCell>
                 <TableCell align="center">{row.details}</TableCell>
                 <TableCell align="center">{row.placedOn}</TableCell>
