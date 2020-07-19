@@ -41,6 +41,7 @@ const RegistrationForm = () => {
             id="outlined-required"
             label="First Name"
             variant="outlined"
+            name="firstName"
           />
         </div>
         <div
@@ -57,6 +58,7 @@ const RegistrationForm = () => {
             id="standard-basic"
             label="Last Name"
             variant="outlined"
+            name="lastName"
           />
         </div>
         <div
@@ -72,6 +74,7 @@ const RegistrationForm = () => {
             id="standard-basic"
             label="Email"
             variant="outlined"
+            name="email"
           />
         </div>
         <div
@@ -88,6 +91,7 @@ const RegistrationForm = () => {
             id="standard-basic"
             label="Password"
             variant="outlined"
+            name="password"
           />
         </div>
         <Button
@@ -95,6 +99,7 @@ const RegistrationForm = () => {
           color="primary"
           className={classes.button}
           style={{ margin: "20px" }}
+          type="submit"
         >
           Register
         </Button>

@@ -106,10 +106,11 @@ const NewOrderForm = (props) => {
         <p style={{ fontWeight: 600 }}>Please enter your personal details - </p>
         <TextField
           required
+          name="firstName"
           label="First name"
           style={{ marginRight: "15px" }}
         />
-        <TextField required label="Last name" />
+        <TextField required name="lastName" label="Last name" />
       </div>
       <div style={{ marginTop: "30px" }}>
         <p style={{ fontWeight: 600 }}>Please select a service - </p>
@@ -215,6 +216,7 @@ const NewOrderForm = (props) => {
           label="Pickup date and time"
           type="datetime-local"
           defaultValue="2020-01-01T12:00"
+          name="dateTime"
           className={(classes.textField, classes.container)}
           InputLabelProps={{
             shrink: true,
@@ -228,6 +230,7 @@ const NewOrderForm = (props) => {
         <TextField
           required
           fullWidth
+          name="address"
           label="Address for pickup and delivery"
           multiline
           rows={4}
@@ -239,7 +242,6 @@ const NewOrderForm = (props) => {
         <FormControlLabel
           control={
             <Checkbox
-              required
               icon={<PaymentIcon />}
               checked={cardPayment}
               onChange={handlePaymentSelection}
@@ -252,7 +254,6 @@ const NewOrderForm = (props) => {
         <FormControlLabel
           control={
             <Checkbox
-              required
               icon={<MoneyIcon />}
               checked={cashPayment}
               onChange={handlePaymentSelection}
