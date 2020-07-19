@@ -45,6 +45,16 @@ const NewOrderForm = (props) => {
   const [cardPayment, setCardPayment] = useState(false);
   const [cashPayment, setCashPayment] = useState(false);
   const [finalAmount, setFinalAmount] = useState(0);
+  const [otherDetails, setOtherDetails] = useState({
+    firstName: "",
+    lastName: "",
+    dateTime: "",
+    address: "",
+  });
+
+  const handleOtherDetails = (prop) => (event) => {
+    setOtherDetails({ ...otherDetails, [prop]: event.target.value });
+  };
 
   const handleServiceChange = (event) => {
     if (event.target.value === "washing") {
@@ -102,7 +112,7 @@ const NewOrderForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(finalAmount);
+    console.log(otherDetails);
     props.handleClose();
   };
 
@@ -115,8 +125,16 @@ const NewOrderForm = (props) => {
           name="firstName"
           label="First name"
           style={{ marginRight: "15px" }}
+          value={otherDetails.firstName}
+          onChange={handleOtherDetails("firstName")}
         />
-        <TextField required name="lastName" label="Last name" />
+        <TextField
+          required
+          name="lastName"
+          label="Last name"
+          value={otherDetails.lastName}
+          onChange={handleOtherDetails("lastName")}
+        />
       </div>
       <div style={{ marginTop: "30px" }}>
         <p style={{ fontWeight: 600 }}>Please select a service - </p>
@@ -222,7 +240,8 @@ const NewOrderForm = (props) => {
           label="Pickup date and time"
           type="datetime-local"
           defaultValue="2020-01-01T12:00"
-          name="dateTime"
+          value={otherDetails.dateTime}
+          onChange={handleOtherDetails("dateTime")}
           className={(classes.textField, classes.container)}
           InputLabelProps={{
             shrink: true,
@@ -236,11 +255,12 @@ const NewOrderForm = (props) => {
         <TextField
           required
           fullWidth
-          name="address"
           label="Address for pickup and delivery"
           multiline
           rows={4}
           variant="outlined"
+          value={otherDetails.address}
+          onChange={handleOtherDetails("address")}
         />
       </div>
       <div style={{ marginTop: "30px" }}>
