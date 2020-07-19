@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -20,13 +20,30 @@ const useStyles = makeStyles((theme) => ({
 const RegistrationForm = () => {
   const classes = useStyles();
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (prop) => (event) => {
+    setFormData({ ...formData, [prop]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
+    setFormData({ firstName: "", lastName: "", email: "", password: "" });
+  };
+
   return (
     <div style={{ textAlign: "center", margin: "20px", marginBottom: "60px" }}>
       <h1>Register</h1>
       <div style={{ marginTop: "30px" }}>
         <h3>Create a new account.</h3>
       </div>
-      <form className={classes.root} autoComplete="off">
+      <form className={classes.root} autoComplete="off" onSubmit={handleSubmit}>
         <div
           style={{
             marginTop: "40px",
@@ -41,7 +58,8 @@ const RegistrationForm = () => {
             id="outlined-required"
             label="First Name"
             variant="outlined"
-            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange("firstName")}
           />
         </div>
         <div
@@ -58,7 +76,8 @@ const RegistrationForm = () => {
             id="standard-basic"
             label="Last Name"
             variant="outlined"
-            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange("lastName")}
           />
         </div>
         <div
@@ -74,7 +93,8 @@ const RegistrationForm = () => {
             id="standard-basic"
             label="Email"
             variant="outlined"
-            name="email"
+            value={formData.email}
+            onChange={handleInputChange("email")}
           />
         </div>
         <div
@@ -91,7 +111,8 @@ const RegistrationForm = () => {
             id="standard-basic"
             label="Password"
             variant="outlined"
-            name="password"
+            value={formData.password}
+            onChange={handleInputChange("password")}
           />
         </div>
         <Button
