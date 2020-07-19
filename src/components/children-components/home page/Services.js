@@ -7,9 +7,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Washing from "../../assets/washing.svg";
-import Drying from "../../assets/drying.svg";
-import Bleaching from "../../assets/bleaching.svg";
+import Washing from "../../../assets/washing.svg";
+import Drying from "../../../assets/drying.svg";
+import Bleaching from "../../../assets/bleaching.svg";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({

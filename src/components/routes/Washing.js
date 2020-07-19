@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
-import WashingService from "../washing/WashingService";
+import WashingService from "../children-components/washing service info page/WashingService";
 import GeneralInstruction from "../common/GeneralInstruction";
 
 const Washing = () => {

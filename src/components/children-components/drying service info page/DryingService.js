@@ -5,8 +5,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Medium from "../../assets/15kg.svg";
-import Small from "../../assets/25kg.svg";
+import Medium from "../../../assets/15kg.svg";
+import Small from "../../../assets/25kg.svg";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({

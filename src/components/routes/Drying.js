@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
-import DryingService from "../drying/DryingService";
+import DryingService from "../children-components/drying service info page/DryingService";
 import GeneralInstruction from "../common/GeneralInstruction";
 
 const Drying = () => {

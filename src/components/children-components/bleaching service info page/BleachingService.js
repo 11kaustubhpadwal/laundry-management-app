@@ -5,7 +5,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import BleachingImage from "../../assets/bleachingService.svg";
+import BleachingImage from "../../../assets/bleachingService.svg";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({

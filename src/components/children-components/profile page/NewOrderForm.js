@@ -52,10 +52,6 @@ const NewOrderForm = (props) => {
     address: "",
   });
 
-  const handleOtherDetails = (prop) => (event) => {
-    setOtherDetails({ ...otherDetails, [prop]: event.target.value });
-  };
-
   const handleServiceChange = (event) => {
     if (event.target.value === "washing") {
       setWashing(true);
@@ -108,6 +104,10 @@ const NewOrderForm = (props) => {
       setCardPayment(false);
       setCashPayment(true);
     }
+  };
+
+  const handleOtherDetails = (prop) => (event) => {
+    setOtherDetails({ ...otherDetails, [prop]: event.target.value });
   };
 
   const handleSubmit = (event) => {
