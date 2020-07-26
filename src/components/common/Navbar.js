@@ -13,6 +13,15 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: "5rem",
   },
+  root: {
+    [theme.breakpoints.down("md")]: {
+      marginBottom: "30px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "50px",
+      marginTop: "20px",
+    },
+  },
 }));
 
 const Navbar = () => {
@@ -25,6 +34,7 @@ const Navbar = () => {
       direction="row"
       justify="center"
       alignItems="center"
+      className={classes.root}
     >
       <Grid item xs={12} sm={2} md={2} lg={2} className={classes.link}>
         <Link to="/" className={classes.link}>
