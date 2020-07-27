@@ -9,22 +9,27 @@ import Drying from "./components/routes/Drying";
 import Bleaching from "./components/routes/Bleaching";
 import Profile from "./components/routes/Profile";
 
+import { Provider } from "react-redux";
+import store from "./store";
+
 function App() {
   return (
-    <Router>
-      <div>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/washing" component={Washing} />
-          <Route exact path="/drying" component={Drying} />
-          <Route exact path="/bleaching" component={Bleaching} />
-          <Route exact path="/profile" component={Profile} />
-        </Switch>
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/washing" component={Washing} />
+            <Route exact path="/drying" component={Drying} />
+            <Route exact path="/bleaching" component={Bleaching} />
+            <Route exact path="/profile" component={Profile} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
