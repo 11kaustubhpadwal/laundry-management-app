@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ToastMessage from "../../common/ToastMessage";
+import { connect } from "react-redux";
+import { registerUser } from "../../../actions/authActions";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ auth: { error }, registerUser }) => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -33,12 +37,13 @@ const RegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(formData);
+    registerUser(formData);
     setFormData({ firstName: "", lastName: "", email: "", password: "" });
   };
 
   return (
     <div style={{ textAlign: "center", margin: "20px", marginBottom: "60px" }}>
+      {error !== null && <ToastMessage msg={error.msg} />}
       <h1>Register</h1>
       <div style={{ marginTop: "30px" }}>
         <h3>Create a new account.</h3>
@@ -129,4 +134,12 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+RegistrationForm.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { registerUser })(RegistrationForm);
