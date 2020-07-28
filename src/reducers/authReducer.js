@@ -2,9 +2,12 @@ import {
   REGISTER_SUCCESS,
   REGISTER_ERROR,
   CLEAR_ERROR,
+  GET_USER_ERROR,
+  GET_USER_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
+  user: null,
   isAuthenticated: false,
   error: null,
 };
@@ -16,7 +19,13 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
       };
+    case GET_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+      };
     case REGISTER_ERROR:
+    case GET_USER_ERROR:
       return {
         ...state,
         isAuthenticated: false,
