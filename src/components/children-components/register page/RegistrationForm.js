@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -6,6 +6,7 @@ import ToastMessage from "../../common/ToastMessage";
 import { connect } from "react-redux";
 import { registerUser } from "../../../actions/authActions";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegistrationForm = ({ auth: { error }, registerUser }) => {
+const RegistrationForm = ({
+  auth: { error, isAuthenticated },
+  registerUser,
+}) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/profile");
+    }
+  }, [isAuthenticated]);
+
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
