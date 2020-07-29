@@ -32,6 +32,7 @@ const RegistrationForm = ({
     if (isAuthenticated) {
       history.push("/profile");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   const classes = useStyles();

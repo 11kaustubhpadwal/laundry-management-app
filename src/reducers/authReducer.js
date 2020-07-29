@@ -4,6 +4,9 @@ import {
   CLEAR_ERROR,
   GET_USER_ERROR,
   GET_USER_SUCCESS,
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
+  LOGOUT,
 } from "../actions/types";
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
+    case LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
@@ -25,15 +29,19 @@ export default (state = initialState, action) => {
         user: action.payload,
       };
     case REGISTER_ERROR:
+    case LOGIN_ERROR:
     case GET_USER_ERROR:
       return {
         ...state,
+        user: null,
         isAuthenticated: false,
         error: action.payload,
       };
     case CLEAR_ERROR:
+    case LOGOUT:
       return {
         ...state,
+        user: null,
         isAuthenticated: false,
         error: null,
       };

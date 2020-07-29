@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 const Profile = ({ auth: { isAuthenticated, user }, getUser }) => {
   useEffect(() => {
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isAuthenticated) {

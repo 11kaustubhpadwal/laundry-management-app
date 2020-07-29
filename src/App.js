@@ -8,9 +8,20 @@ import Washing from "./components/routes/Washing";
 import Drying from "./components/routes/Drying";
 import Bleaching from "./components/routes/Bleaching";
 import Profile from "./components/routes/Profile";
+import checkAuthToken from "./utils/checkAuthToken";
 
 import { Provider } from "react-redux";
 import store from "./store";
+import { LOGIN_SUCCESS } from "./actions/types";
+
+let response = checkAuthToken();
+
+if (response !== undefined) {
+  store.dispatch({
+    type: LOGIN_SUCCESS,
+    payload: localStorage.getItem("token"),
+  });
+}
 
 function App() {
   return (
