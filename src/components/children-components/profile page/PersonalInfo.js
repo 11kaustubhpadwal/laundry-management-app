@@ -5,6 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PersonalInfo = () => {
+const PersonalInfo = ({ user: { firstName, lastName, email } }) => {
   const classes = useStyles();
 
   const [edit, setEdit] = useState(false);
@@ -79,7 +80,7 @@ const PersonalInfo = () => {
       }}
     >
       <div style={{ textAlign: "center" }}>
-        <h1>Hello, {"First Name"}</h1>
+        <h1>Hello, {firstName}</h1>
       </div>
       <Card className={classes.root}>
         <CardContent>
@@ -122,7 +123,7 @@ const PersonalInfo = () => {
           <br />
           {!edit && (
             <Typography className={classes.card}>
-              First Name Last Name
+              {firstName + " " + lastName}
             </Typography>
           )}
           {edit && (
@@ -149,11 +150,15 @@ const PersonalInfo = () => {
             </form>
           )}
           <br />
-          <Typography>Email ID</Typography>
+          <Typography>{email}</Typography>
         </CardContent>
       </Card>
     </div>
   );
+};
+
+PersonalInfo.propTypes = {
+  user: PropTypes.object.isRequired,
 };
 
 export default PersonalInfo;

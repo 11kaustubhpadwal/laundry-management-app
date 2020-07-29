@@ -13,6 +13,7 @@ import checkAuthToken from "./utils/checkAuthToken";
 import { Provider } from "react-redux";
 import store from "./store";
 import { LOGIN_SUCCESS } from "./actions/types";
+import { getUser } from "./actions/authActions";
 
 let response = checkAuthToken();
 
@@ -21,6 +22,7 @@ if (response !== undefined) {
     type: LOGIN_SUCCESS,
     payload: localStorage.getItem("token"),
   });
+  store.dispatch(getUser());
 }
 
 function App() {

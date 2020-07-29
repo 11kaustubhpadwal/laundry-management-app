@@ -49,7 +49,7 @@ export const registerUser = (formData) => {
       localStorage.setItem("token", response.data.token);
       dispatch({ type: REGISTER_SUCCESS, payload: response.data });
 
-      getUser();
+      dispatch(getUser());
     } catch (error) {
       localStorage.removeItem("token");
       dispatch({ type: REGISTER_ERROR, payload: error.response.data });
@@ -77,7 +77,7 @@ export const loginUser = (formData) => {
       localStorage.setItem("token", response.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: response.data });
 
-      getUser();
+      dispatch(getUser());
     } catch (error) {
       localStorage.removeItem("token");
       dispatch({ type: LOGIN_ERROR, payload: error.response.data });
