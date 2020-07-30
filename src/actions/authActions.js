@@ -9,6 +9,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT,
+  INFO_UPDATE_ERROR,
+  CLEAR_UPDATE_ERROR,
 } from "./types";
 
 // Get logged in user's profile
@@ -84,6 +86,31 @@ export const loginUser = (formData) => {
 
       setTimeout(() => {
         dispatch({ type: CLEAR_ERROR });
+      }, 8000);
+    }
+  };
+};
+
+// Update personal details
+export const updateInfo = (formData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        method: "patch",
+        url: "http://localhost:5000/api/users",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("token"),
+        },
+        data: formData,
+      });
+
+      dispatch(getUser());
+    } catch (error) {
+      dispatch({ type: INFO_UPDATE_ERROR, payload: error.response.data });
+
+      setTimeout(() => {
+        dispatch({ type: CLEAR_UPDATE_ERROR });
       }, 8000);
     }
   };

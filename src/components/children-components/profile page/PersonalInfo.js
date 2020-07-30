@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PersonalInfo = ({ user: { firstName, lastName, email } }) => {
+const PersonalInfo = ({ user: { firstName, lastName, email }, updateInfo }) => {
   const classes = useStyles();
 
   const [edit, setEdit] = useState(false);
@@ -65,7 +65,7 @@ const PersonalInfo = ({ user: { firstName, lastName, email } }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(formData);
+    updateInfo(formData);
     setFormData({ firstName: "", lastName: "" });
     handleCancelClick();
   };

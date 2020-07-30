@@ -10,12 +10,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ToastMessage = (props) => {
+const ToastMessage = ({ msg }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Alert severity="error">{props.msg}</Alert>
+      <Alert severity="error">{msg}</Alert>
     </div>
   );
 };

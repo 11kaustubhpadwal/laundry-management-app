@@ -8,8 +8,10 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loader from "../common/Loader";
+import { updateInfo } from "../../actions/authActions";
+import ToastMessage from "../common/ToastMessage";
 
-const Profile = ({ auth: { isAuthenticated, user } }) => {
+const Profile = ({ auth: { isAuthenticated, user, error }, updateInfo }) => {
   if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
@@ -21,7 +23,12 @@ const Profile = ({ auth: { isAuthenticated, user } }) => {
   return (
     <Container maxWidth="lg">
       <Navbar />
-      <PersonalInfo user={user} />
+      {(error !== null || (error !== null && error.errors.length > 1)) && (
+        <ToastMessage
+          msg={"Failed to update personal information. Please try again."}
+        />
+      )}
+      <PersonalInfo user={user} updateInfo={updateInfo} />
       <Orders />
       <Footer />
     </Container>
@@ -36,4 +43,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { updateInfo })(Profile);

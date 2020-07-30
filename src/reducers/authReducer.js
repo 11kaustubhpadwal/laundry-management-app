@@ -7,6 +7,8 @@ import {
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   LOGOUT,
+  INFO_UPDATE_ERROR,
+  CLEAR_UPDATE_ERROR,
 } from "../actions/types";
 
 const initialState = {
@@ -37,6 +39,18 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         error: action.payload,
       };
+    case INFO_UPDATE_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+    case CLEAR_UPDATE_ERROR: {
+      return {
+        ...state,
+        error: null,
+      };
+    }
     case CLEAR_ERROR:
     case LOGOUT:
       return {

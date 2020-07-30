@@ -108,7 +108,7 @@ router.patch(
           req.user.id,
           { $set: { firstName: firstName, lastName: lastName } },
           { new: true }
-        );
+        ).select("-password");
 
         res.json(user);
       }
