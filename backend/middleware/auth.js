@@ -13,6 +13,8 @@ module.exports = function (req, res, next) {
     req.user = decoded.user;
     next();
   } catch (error) {
-    console.log(error);
+    res
+      .status(400)
+      .json({ msg: "Authentication failed. Please login and try again." });
   }
 };

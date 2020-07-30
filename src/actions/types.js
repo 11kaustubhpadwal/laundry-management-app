@@ -8,3 +8,15 @@ export const GET_USER_ERROR = "GET_USER_ERROR";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 export const SET_LOADING = "SET_LOADING";
 export const LOGOUT = "LOGOUT";
+
+// Orders
+export const GET_ORDERS_SUCCESS = "GET_ORDERS_SUCCESS";
+export const GET_ORDERS_ERROR = "GET_ORDERS_ERROR";
+export const PLACE_ORDER_SUCCESS = "PLACE_ORDER_SUCCESS";
+export const PLACE_ORDER_ERROR = "PLACE_ORDER_ERROR";
+export const CANCEL_ORDER_SUCCESS = "CANCEL_ORDER_SUCCESS";
+export const CANCEL_ORDER_ERROR = "CANCEL_ORDER_ERROR";
+
+// Personal information edit
+export const INFO_UPDATE_SUCCESS = "INFO_UPDATE_SUCCESS";
+export const INFO_UPDATE_ERROR = "INFO_UPDATE_ERROR";

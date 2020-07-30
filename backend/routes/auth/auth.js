@@ -15,7 +15,7 @@ router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (error) {
-    console.log(error);
+    res.status(400).json({ msg: "Failed to load profile. Please try again." });
   }
 });
 
@@ -67,7 +67,7 @@ router.post(
         }
       );
     } catch (error) {
-      console.log(error);
+      res.status(400).json({ msg: "Failed to login. Please try again." });
     }
   }
 );

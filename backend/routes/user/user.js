@@ -71,7 +71,9 @@ router.post(
         }
       );
     } catch (error) {
-      console.log(error);
+      res
+        .status(400)
+        .json({ msg: "Failed to create a new account. Please try again." });
     }
   }
 );
@@ -111,7 +113,9 @@ router.patch(
         res.json(user);
       }
     } catch (error) {
-      console.log(error);
+      res
+        .status(400)
+        .json({ msg: "Failed to update the profile. Please try again." });
     }
   }
 );

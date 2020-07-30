@@ -14,7 +14,9 @@ router.get("/", auth, async (req, res) => {
     const orders = await Order.find({ referenceNumber: req.user.id });
     res.json(orders);
   } catch (error) {
-    console.log(error);
+    res
+      .status(400)
+      .json({ msg: "Failed to get a list of orders. Please try again." });
   }
 });
 
@@ -84,7 +86,9 @@ router.post(
 
       res.json({ order, msg: "Order placed successfully." });
     } catch (error) {
-      console.log(error);
+      res
+        .status(400)
+        .json({ msg: "Failed to place an order. Please try again." });
     }
   }
 );
@@ -108,7 +112,9 @@ router.patch("/:orderID", auth, async (req, res) => {
       res.json(order);
     }
   } catch (error) {
-    console.log(error);
+    res
+      .status(400)
+      .json({ msg: "Failed to cancel your order. Please try again." });
   }
 });
 
