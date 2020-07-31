@@ -47,6 +47,8 @@ const NewOrderForm = (props) => {
   const [disableSelection, setDisableSelection] = useState(false);
   const [cardPayment, setCardPayment] = useState(false);
   const [cashPayment, setCashPayment] = useState(false);
+  const [requiredAttributeCard, setRequiredAttributeCard] = useState(true);
+  const [requiredAttributeCash, setRequiredAttributeCash] = useState(true);
   const [finalAmount, setFinalAmount] = useState(0);
   const [otherDetails, setOtherDetails] = useState({
     firstName: "",
@@ -56,12 +58,12 @@ const NewOrderForm = (props) => {
   });
 
   const handleServiceChange = (event) => {
-    if (event.target.value === "washing") {
+    if (event.target.value === "Washing") {
       setWashing(true);
       setBleaching(false);
       setDisableSelection(false);
     }
-    if (event.target.value === "bleaching") {
+    if (event.target.value === "Bleaching") {
       setWashing(false);
       setBleaching(true);
       setDisableSelection(true);
@@ -100,10 +102,12 @@ const NewOrderForm = (props) => {
 
   const handlePaymentSelection = (event) => {
     if (event.target.name === "card") {
+      setRequiredAttributeCash(false);
       setCardPayment(true);
       setCashPayment(false);
     }
     if (event.target.name === "cash") {
+      setRequiredAttributeCard(false);
       setCardPayment(false);
       setCashPayment(true);
     }
@@ -115,6 +119,8 @@ const NewOrderForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    let pickupDate = otherDetails.dateTime.toString().slice(0, 10);
+    let pickupTime = otherDetails.dateTime.toString().slice(11, 16);
     //placeOrder();
     props.handleClose();
   };
@@ -148,8 +154,8 @@ const NewOrderForm = (props) => {
             onChange={handleServiceChange}
             label="Service"
           >
-            <MenuItem value={"washing"}>Washing</MenuItem>
-            <MenuItem value={"bleaching"}>Bleaching</MenuItem>
+            <MenuItem value={"Washing"}>Washing</MenuItem>
+            <MenuItem value={"Bleaching"}>Bleaching</MenuItem>
           </Select>
         </FormControl>
         {washing && (
@@ -276,6 +282,7 @@ const NewOrderForm = (props) => {
               onChange={handlePaymentSelection}
               name="card"
               color="primary"
+              required={requiredAttributeCard}
             />
           }
           label="Card on delivery"
@@ -288,6 +295,7 @@ const NewOrderForm = (props) => {
               onChange={handlePaymentSelection}
               name="cash"
               color="primary"
+              required={requiredAttributeCash}
             />
           }
           label="Cash on delivery"
