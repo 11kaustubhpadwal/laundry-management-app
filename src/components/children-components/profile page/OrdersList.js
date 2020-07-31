@@ -9,20 +9,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import ToastMessage from "../../common/ToastMessage";
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#3d5afe",
-    },
-    secondary: {
-      main: "#f44336",
-    },
-  },
-});
 
 const useStyles = makeStyles({
   table: {
@@ -32,24 +20,6 @@ const useStyles = makeStyles({
 
 const OrdersList = ({ orders }) => {
   const classes = useStyles();
-
-  function createData(orderNumber, details, placedOn, status, cancel) {
-    return { orderNumber, details, placedOn, status, cancel };
-  }
-
-  const rows = [
-    createData(
-      9987998,
-      <Button variant="contained" color="primary">
-        View
-      </Button>,
-      " 10/07/2020",
-      <Chip label="Completed" color="primary" />,
-      <Button variant="contained" color="secondary" disabled>
-        Cancel
-      </Button>
-    ),
-  ];
 
   if (orders.error !== null) {
     return <ToastMessage msg={orders.error.msg} />;
@@ -66,32 +36,45 @@ const OrdersList = ({ orders }) => {
     );
   } else {
     return (
-      <ThemeProvider theme={theme}>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Order number</TableCell>
-                <TableCell align="center">Details</TableCell>
-                <TableCell align="center">Placed on</TableCell>
-                <TableCell align="center">Status</TableCell>
-                <TableCell align="center">Cancel</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell>{row.orderNumber}</TableCell>
-                  <TableCell align="center">{row.details}</TableCell>
-                  <TableCell align="center">{row.placedOn}</TableCell>
-                  <TableCell align="center">{row.status}</TableCell>
-                  <TableCell align="center">{row.cancel}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </ThemeProvider>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Order number</TableCell>
+              <TableCell align="center">Details</TableCell>
+              <TableCell align="center">Placed on</TableCell>
+              <TableCell align="center">Status</TableCell>
+              <TableCell align="center">Cancel</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orders.orders.map(
+              (order, index) =>
+                order.orderStatus === "In progress" && (
+                  <TableRow key={index}>
+                    <TableCell>{order.orderNumber}</TableCell>
+                    <TableCell align="center">
+                      <Button variant="contained" color="primary">
+                        View
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">
+                      {order.placedOn.toString().slice(0, 10)}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Chip label={order.orderStatus} color="primary" />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button variant="contained" color="secondary">
+                        Cancel
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                )
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     );
   }
 };

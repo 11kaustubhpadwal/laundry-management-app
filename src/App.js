@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Home from "./components/routes/Home";
 import About from "./components/routes/About";
 import Login from "./components/routes/Login";
@@ -25,22 +26,35 @@ if (response !== undefined) {
   });
 }
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#3d5afe",
+    },
+    secondary: {
+      main: "#f44336",
+    },
+  },
+});
+
 function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/washing" component={Washing} />
-            <Route exact path="/drying" component={Drying} />
-            <Route exact path="/bleaching" component={Bleaching} />
-            <Route exact path="/profile" component={Profile} />
-          </Switch>
-        </div>
+        <ThemeProvider theme={theme}>
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/washing" component={Washing} />
+              <Route exact path="/drying" component={Drying} />
+              <Route exact path="/bleaching" component={Bleaching} />
+              <Route exact path="/profile" component={Profile} />
+            </Switch>
+          </div>
+        </ThemeProvider>
       </Router>
     </Provider>
   );

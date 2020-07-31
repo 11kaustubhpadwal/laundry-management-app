@@ -28,6 +28,18 @@ export default (state = initialState, action) => {
         error: action.payload,
       };
     }
+    case PLACE_ORDER_SUCCESS: {
+      return {
+        ...state,
+        orderPlaced: action.payload,
+      };
+    }
+    case PLACE_ORDER_ERROR: {
+      return {
+        ...state,
+        orderCancelled: action.payload,
+      };
+    }
     default:
       return state;
   }
