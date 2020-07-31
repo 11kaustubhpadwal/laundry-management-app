@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import ToastMessage from "../../common/ToastMessage";
 
 const theme = createMuiTheme({
   palette: {
@@ -72,10 +73,14 @@ const rows = [
 const OrdersList = ({ orders }) => {
   const classes = useStyles();
 
+  if (orders.error !== null) {
+    return <ToastMessage msg={orders.error.msg} />;
+  }
+
   if (orders.orders.length === 0) {
     return (
       <div style={{ marginBottom: "170px" }}>
-        <h3 style={{ marginTop: "70px" }}>
+        <h3 style={{ marginTop: "70px", textAlign: "center" }}>
           You haven't ordered anything yet. All your orders will appear here
           once you place them.
         </h3>

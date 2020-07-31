@@ -10,6 +10,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import PaymentIcon from "@material-ui/icons/Payment";
 import MoneyIcon from "@material-ui/icons/Money";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 const NewOrderForm = (props) => {
   const classes = useStyles();
+
+  const { placeOrder } = props;
 
   const [requiredService, setRequiredService] = useState(null);
   const [washing, setWashing] = useState(false);
@@ -112,7 +115,7 @@ const NewOrderForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(otherDetails);
+    //placeOrder();
     props.handleClose();
   };
 
@@ -313,6 +316,11 @@ const NewOrderForm = (props) => {
       </Button>
     </form>
   );
+};
+
+NewOrderForm.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  placeOrder: PropTypes.func.isRequired,
 };
 
 export default NewOrderForm;

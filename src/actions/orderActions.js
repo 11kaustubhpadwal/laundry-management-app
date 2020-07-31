@@ -8,6 +8,7 @@ import {
 } from "./types";
 import axios from "axios";
 
+// Get a list of all orders
 export const getOrders = () => {
   return async (dispatch) => {
     try {
@@ -20,6 +21,26 @@ export const getOrders = () => {
       dispatch({ type: GET_ORDERS_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({ type: GET_ORDERS_ERROR, payload: error.response.data });
+    }
+  };
+};
+
+// Place a new order
+export const placeOrder = (formData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:5000/api/orders",
+        headers: { "x-auth-token": localStorage.getItem("token") },
+        data: formData,
+      });
+
+      dispatch({ type: PLACE_ORDER_SUCCESS, payload: "Success." });
+
+      dispatch(getOrders());
+    } catch (error) {
+      dispatch({ type: PLACE_ORDER_ERROR, payload: error.response.data });
     }
   };
 };

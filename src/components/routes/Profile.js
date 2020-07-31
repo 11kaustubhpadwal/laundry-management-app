@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loader from "../common/Loader";
 import { updateInfo } from "../../actions/authActions";
-import { getOrders } from "../../actions/orderActions";
+import { getOrders, placeOrder } from "../../actions/orderActions";
 import ToastMessage from "../common/ToastMessage";
 
 const Profile = ({
@@ -17,6 +17,7 @@ const Profile = ({
   updateInfo,
   orders,
   getOrders,
+  placeOrder,
 }) => {
   useEffect(() => {
     getOrders();
@@ -40,7 +41,7 @@ const Profile = ({
         <ToastMessage msg={"Please provide both first and last names."} />
       )}
       <PersonalInfo user={user} updateInfo={updateInfo} />
-      <Orders orders={orders} />
+      <Orders orders={orders} placeOrder={placeOrder} />
       <Footer />
     </Container>
   );
@@ -55,4 +56,6 @@ const mapStateToProps = (state) => ({
   orders: state.order,
 });
 
-export default connect(mapStateToProps, { updateInfo, getOrders })(Profile);
+export default connect(mapStateToProps, { updateInfo, getOrders, placeOrder })(
+  Profile
+);

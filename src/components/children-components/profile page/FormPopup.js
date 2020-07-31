@@ -13,6 +13,8 @@ const Transition = forwardRef(function Transition(props, ref) {
 const FormPopup = (props) => {
   const { onClose, open } = props;
 
+  const { placeOrder } = props;
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -27,7 +29,7 @@ const FormPopup = (props) => {
       open={open}
       fullScreen={fullScreen}
     >
-      <NewOrderForm handleClose={handleClose} />
+      <NewOrderForm handleClose={handleClose} placeOrder={placeOrder} />
     </Dialog>
   );
 };
@@ -35,6 +37,7 @@ const FormPopup = (props) => {
 FormPopup.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  placeOrder: PropTypes.func.isRequired,
 };
 
 export default FormPopup;

@@ -10,10 +10,24 @@ import {
 const initialState = {
   orders: [],
   error: null,
+  orderPlaced: null,
+  orderCancelled: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_ORDERS_SUCCESS: {
+      return {
+        ...state,
+        orders: action.payload,
+      };
+    }
+    case GET_ORDERS_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
     default:
       return state;
   }
