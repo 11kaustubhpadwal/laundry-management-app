@@ -119,9 +119,50 @@ const NewOrderForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     let pickupDate = otherDetails.dateTime.toString().slice(0, 10);
     let pickupTime = otherDetails.dateTime.toString().slice(11, 16);
-    //placeOrder();
+
+    let paymentMethod = "";
+    if (cardPayment === true) {
+      paymentMethod = "Card";
+    }
+    if (cashPayment === true) {
+      paymentMethod = "Cash";
+    }
+
+    let quantityFinal = 0;
+    if (quantity === 17) {
+      quantityFinal = 15;
+    } else if (quantity === 27) {
+      quantityFinal = 25;
+    } else if (quantity === 37) {
+      quantityFinal = 35;
+    }
+
+    let optionalQuantityFinal = 0;
+    if (dryingQuantity === 7) {
+      optionalQuantityFinal = 15;
+    } else if (dryingQuantity === 14) {
+      optionalQuantityFinal = 25;
+    }
+
+    let formData = {
+      firstName: otherDetails.firstName,
+      lastName: otherDetails.lastName,
+      service: requiredService,
+      quantity: quantityFinal,
+      numberOfClothes: clothes,
+      optionalService: drying,
+      optionalServiceQuantity: optionalQuantityFinal,
+      pickupDate: pickupDate,
+      pickupTime: pickupTime,
+      address: otherDetails.address,
+      paymentMethod: paymentMethod,
+      totalAmount: finalAmount,
+    };
+
+    placeOrder(formData);
     props.handleClose();
   };
 
@@ -232,8 +273,12 @@ const NewOrderForm = (props) => {
                 onChange={handleDryingQuantityChange}
                 label="Quantity"
               >
-                <MenuItem value={7}>15 kg</MenuItem>
-                <MenuItem value={14}>25 kg</MenuItem>
+                <MenuItem value={7} name="15">
+                  15 kg
+                </MenuItem>
+                <MenuItem value={14} name="25">
+                  25 kg
+                </MenuItem>
               </Select>
             </FormControl>
           </Fragment>

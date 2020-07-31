@@ -29,6 +29,9 @@ const OrderSchema = new mongoose.Schema({
   optionalService: {
     type: String,
   },
+  optionalServiceQuantity: {
+    type: Number,
+  },
   quantity: {
     type: Number,
   },
@@ -54,6 +57,10 @@ const OrderSchema = new mongoose.Schema({
   totalAmount: {
     type: Number,
     required: true,
+  },
+  placedOn: {
+    type: Date,
+    default: Date.now,
   },
 });
 

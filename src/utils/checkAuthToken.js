@@ -6,8 +6,13 @@ let checkToken = () => {};
 
 if (token) {
   checkToken = () => {
-    const response = jwt.verify(token, process.env.REACT_APP_JWT_SECRET);
-    return response;
+    try {
+      const response = jwt.verify(token, process.env.REACT_APP_JWT_SECRET);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   };
 }
 

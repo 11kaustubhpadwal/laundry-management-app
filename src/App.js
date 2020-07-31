@@ -18,11 +18,11 @@ import { getUser } from "./actions/authActions";
 let response = checkAuthToken();
 
 if (response !== undefined) {
+  store.dispatch(getUser());
   store.dispatch({
     type: LOGIN_SUCCESS,
     payload: localStorage.getItem("token"),
   });
-  store.dispatch(getUser());
 }
 
 function App() {

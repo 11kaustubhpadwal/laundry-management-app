@@ -30,48 +30,26 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(orderNumber, details, placedOn, status, cancel) {
-  return { orderNumber, details, placedOn, status, cancel };
-}
-
-const rows = [
-  createData(
-    9987998,
-    <Button variant="contained" color="primary">
-      View
-    </Button>,
-    " 10/07/2020",
-    <Chip label="Completed" color="primary" />,
-    <Button variant="contained" color="secondary" disabled>
-      Cancel
-    </Button>
-  ),
-  createData(
-    9987990,
-    <Button variant="contained" color="primary">
-      View
-    </Button>,
-    "9/9/20",
-    <Chip label="In progress" />,
-    <Button variant="contained" color="secondary">
-      Cancel
-    </Button>
-  ),
-  createData(
-    9987995,
-    <Button variant="contained" color="primary">
-      View
-    </Button>,
-    "31/9/20",
-    <Chip label="Cancelled" color="default" variant="outlined" />,
-    <Button variant="contained" color="secondary" disabled>
-      Cancel
-    </Button>
-  ),
-];
-
 const OrdersList = ({ orders }) => {
   const classes = useStyles();
+
+  function createData(orderNumber, details, placedOn, status, cancel) {
+    return { orderNumber, details, placedOn, status, cancel };
+  }
+
+  const rows = [
+    createData(
+      9987998,
+      <Button variant="contained" color="primary">
+        View
+      </Button>,
+      " 10/07/2020",
+      <Chip label="Completed" color="primary" />,
+      <Button variant="contained" color="secondary" disabled>
+        Cancel
+      </Button>
+    ),
+  ];
 
   if (orders.error !== null) {
     return <ToastMessage msg={orders.error.msg} />;
