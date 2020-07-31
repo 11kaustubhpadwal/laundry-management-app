@@ -24,9 +24,7 @@ const Profile = ({ auth: { isAuthenticated, user, error }, updateInfo }) => {
     <Container maxWidth="lg">
       <Navbar />
       {(error !== null || (error !== null && error.errors.length > 1)) && (
-        <ToastMessage
-          msg={"Failed to update personal information. Please try again."}
-        />
+        <ToastMessage msg={"Please provide both first and last names."} />
       )}
       <PersonalInfo user={user} updateInfo={updateInfo} />
       <Orders />
