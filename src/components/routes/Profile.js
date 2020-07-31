@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Navbar from "../common/Navbar";
 import Footer from "../common/Footer";
@@ -9,14 +9,27 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loader from "../common/Loader";
 import { updateInfo } from "../../actions/authActions";
+import { getOrders } from "../../actions/orderActions";
 import ToastMessage from "../common/ToastMessage";
 
-const Profile = ({ auth: { isAuthenticated, user, error }, updateInfo }) => {
+const Profile = ({
+  auth: { isAuthenticated, user, error },
+  updateInfo,
+  orders,
+  getOrders,
+}) => {
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
 
-  if (isAuthenticated && user === null) {
+  if (
+    (isAuthenticated && user === null) ||
+    (isAuthenticated && orders === [])
+  ) {
     return <Loader />;
   }
 
@@ -27,7 +40,7 @@ const Profile = ({ auth: { isAuthenticated, user, error }, updateInfo }) => {
         <ToastMessage msg={"Please provide both first and last names."} />
       )}
       <PersonalInfo user={user} updateInfo={updateInfo} />
-      <Orders />
+      <Orders orders={orders} />
       <Footer />
     </Container>
   );
@@ -39,6 +52,7 @@ Profile.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  orders: state.order,
 });
 
-export default connect(mapStateToProps, { updateInfo })(Profile);
+export default connect(mapStateToProps, { updateInfo, getOrders })(Profile);

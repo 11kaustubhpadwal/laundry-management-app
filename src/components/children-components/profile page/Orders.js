@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import OrdersList from "./OrdersList";
 import FormPopup from "./FormPopup";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Orders = (props) => {
+const Orders = ({ orders }) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -73,10 +74,14 @@ const Orders = (props) => {
           </Typography>
         </CardContent>
       </Card>
-      <OrdersList />
+      <OrdersList orders={orders} />
       <FormPopup open={open} onClose={handleClose} />
     </div>
   );
+};
+
+Orders.propTypes = {
+  orders: PropTypes.object.isRequired,
 };
 
 export default Orders;

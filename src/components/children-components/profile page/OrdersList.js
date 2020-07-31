@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const theme = createMuiTheme({
   palette: {
@@ -68,37 +69,52 @@ const rows = [
   ),
 ];
 
-const OrdersList = () => {
+const OrdersList = ({ orders }) => {
   const classes = useStyles();
 
-  return (
-    <ThemeProvider theme={theme}>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Order number</TableCell>
-              <TableCell align="center">Details</TableCell>
-              <TableCell align="center">Placed on</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Cancel</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell>{row.orderNumber}</TableCell>
-                <TableCell align="center">{row.details}</TableCell>
-                <TableCell align="center">{row.placedOn}</TableCell>
-                <TableCell align="center">{row.status}</TableCell>
-                <TableCell align="center">{row.cancel}</TableCell>
+  if (orders.orders.length === 0) {
+    return (
+      <div style={{ marginBottom: "170px" }}>
+        <h3 style={{ marginTop: "70px" }}>
+          You haven't ordered anything yet. All your orders will appear here
+          once you place them.
+        </h3>
+      </div>
+    );
+  } else {
+    return (
+      <ThemeProvider theme={theme}>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Order number</TableCell>
+                <TableCell align="center">Details</TableCell>
+                <TableCell align="center">Placed on</TableCell>
+                <TableCell align="center">Status</TableCell>
+                <TableCell align="center">Cancel</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </ThemeProvider>
-  );
+            </TableHead>
+            <TableBody>
+              {rows.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>{row.orderNumber}</TableCell>
+                  <TableCell align="center">{row.details}</TableCell>
+                  <TableCell align="center">{row.placedOn}</TableCell>
+                  <TableCell align="center">{row.status}</TableCell>
+                  <TableCell align="center">{row.cancel}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </ThemeProvider>
+    );
+  }
+};
+
+OrdersList.propTypes = {
+  orders: PropTypes.object.isRequired,
 };
 
 export default OrdersList;
