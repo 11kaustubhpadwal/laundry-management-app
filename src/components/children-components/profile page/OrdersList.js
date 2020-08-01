@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import PropTypes from "prop-types";
 import ToastMessage from "../../common/ToastMessage";
+import OrderInfo from "./OrderInfo";
 
 const useStyles = makeStyles({
   table: {
@@ -54,15 +55,7 @@ const OrdersList = ({ orders, cancelOrder }) => {
                   <TableRow key={order._id}>
                     <TableCell>{order.orderNumber}</TableCell>
                     <TableCell align="center">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          console.log(order._id);
-                        }}
-                      >
-                        View
-                      </Button>
+                      <OrderInfo order={order} />
                     </TableCell>
                     <TableCell align="center">
                       {order.placedOn.toString().slice(0, 10)}
@@ -90,15 +83,7 @@ const OrdersList = ({ orders, cancelOrder }) => {
                   <TableRow key={index}>
                     <TableCell>{order.orderNumber}</TableCell>
                     <TableCell align="center">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          console.log(order._id);
-                        }}
-                      >
-                        View
-                      </Button>
+                      <OrderInfo order={order} />
                     </TableCell>
                     <TableCell align="center">
                       {order.placedOn.toString().slice(0, 10)}
@@ -124,15 +109,7 @@ const OrdersList = ({ orders, cancelOrder }) => {
                   <TableRow key={index}>
                     <TableCell>{order.orderNumber}</TableCell>
                     <TableCell align="center">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          console.log(order._id);
-                        }}
-                      >
-                        View
-                      </Button>
+                      <OrderInfo order={order} />
                     </TableCell>
                     <TableCell align="center">
                       {order.placedOn.toString().slice(0, 10)}
