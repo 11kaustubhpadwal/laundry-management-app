@@ -5,13 +5,16 @@ import {
   PLACE_ORDER_SUCCESS,
   CANCEL_ORDER_ERROR,
   CANCEL_ORDER_SUCCESS,
+  CLEAR_TOASTS,
 } from "../actions/types";
 
 const initialState = {
   orders: [],
-  error: null,
+  getOrdersError: null,
   orderPlaced: null,
   orderCancelled: null,
+  orderPlacingError: null,
+  orderCancellingError: null,
 };
 
 export default (state = initialState, action) => {
@@ -25,7 +28,7 @@ export default (state = initialState, action) => {
     case GET_ORDERS_ERROR: {
       return {
         ...state,
-        error: action.payload,
+        getOrdersError: action.payload,
       };
     }
     case PLACE_ORDER_SUCCESS: {
@@ -37,7 +40,7 @@ export default (state = initialState, action) => {
     case PLACE_ORDER_ERROR: {
       return {
         ...state,
-        orderCancelled: action.payload,
+        orderPlacingError: action.payload,
       };
     }
     case CANCEL_ORDER_SUCCESS: {
@@ -49,7 +52,17 @@ export default (state = initialState, action) => {
     case CANCEL_ORDER_ERROR: {
       return {
         ...state,
-        orderCancelled: action.payload,
+        orderCancellingError: action.payload,
+      };
+    }
+    case CLEAR_TOASTS: {
+      return {
+        ...state,
+        getOrdersError: null,
+        orderPlaced: null,
+        orderCancelled: null,
+        orderPlacingError: null,
+        orderCancellingError: null,
       };
     }
     default:

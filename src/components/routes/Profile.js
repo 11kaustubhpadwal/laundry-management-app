@@ -11,6 +11,7 @@ import Loader from "../common/Loader";
 import { updateInfo } from "../../actions/authActions";
 import { getOrders, placeOrder, cancelOrder } from "../../actions/orderActions";
 import ToastMessage from "../common/ToastMessage";
+import SuccessToast from "../children-components/profile page/SuccessToast";
 
 const Profile = ({
   auth: { isAuthenticated, user, error },
@@ -23,6 +24,14 @@ const Profile = ({
   useEffect(() => {
     getOrders();
   }, []);
+
+  const {
+    orderCancelled,
+    orderPlaced,
+    getOrdersError,
+    orderPlacingError,
+    orderCancellingError,
+  } = orders;
 
   if (!isAuthenticated) {
     return <Redirect to="/login" />;
@@ -38,10 +47,17 @@ const Profile = ({
   return (
     <Container maxWidth="lg">
       <Navbar />
-      {(error !== null || (error !== null && error.errors.length > 1)) && (
+      <PersonalInfo user={user} updateInfo={updateInfo} />
+      {error !== null && (
         <ToastMessage msg={"Please provide both first and last names."} />
       )}
-      <PersonalInfo user={user} updateInfo={updateInfo} />
+      {orderCancelled !== null && <SuccessToast msg={orderCancelled} />}
+      {orderPlaced !== null && <SuccessToast msg={orderPlaced} />}
+      {orderPlacingError !== null && <ToastMessage msg={orderPlacingError} />}
+      {orderCancellingError !== null && (
+        <ToastMessage msg={orderCancellingError} />
+      )}
+      {getOrdersError !== null && <ToastMessage msg={getOrdersError} />}
       <Orders
         orders={orders}
         placeOrder={placeOrder}

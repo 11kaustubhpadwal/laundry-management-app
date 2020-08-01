@@ -11,14 +11,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ToastMessage = ({ msg }) => {
+const SuccessToast = ({ msg }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Alert severity="error">{msg}</Alert>
+      <Alert severity="success">{msg}</Alert>
     </div>
   );
 };
 
-export default ToastMessage;
+export default SuccessToast;

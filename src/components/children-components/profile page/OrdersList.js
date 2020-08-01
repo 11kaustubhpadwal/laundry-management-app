@@ -10,7 +10,6 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import PropTypes from "prop-types";
-import ToastMessage from "../../common/ToastMessage";
 import OrderInfo from "./OrderInfo";
 import ConfirmOrderCancel from "./ConfirmOrderCancel";
 
@@ -22,10 +21,6 @@ const useStyles = makeStyles({
 
 const OrdersList = ({ orders, cancelOrder }) => {
   const classes = useStyles();
-
-  if (orders.error !== null) {
-    return <ToastMessage msg={orders.error.msg} />;
-  }
 
   if (orders.orders.length === 0) {
     return (
@@ -65,15 +60,6 @@ const OrdersList = ({ orders, cancelOrder }) => {
                       <Chip label={order.orderStatus} color="primary" />
                     </TableCell>
                     <TableCell align="center">
-                      {/* <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => {
-                          cancelOrder(order._id);
-                        }}
-                      >
-                        Cancel
-                      </Button> */}
                       <ConfirmOrderCancel
                         orderID={order._id}
                         cancelOrder={cancelOrder}
