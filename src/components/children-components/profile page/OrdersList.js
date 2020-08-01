@@ -12,6 +12,7 @@ import Chip from "@material-ui/core/Chip";
 import PropTypes from "prop-types";
 import ToastMessage from "../../common/ToastMessage";
 import OrderInfo from "./OrderInfo";
+import ConfirmOrderCancel from "./ConfirmOrderCancel";
 
 const useStyles = makeStyles({
   table: {
@@ -64,7 +65,7 @@ const OrdersList = ({ orders, cancelOrder }) => {
                       <Chip label={order.orderStatus} color="primary" />
                     </TableCell>
                     <TableCell align="center">
-                      <Button
+                      {/* <Button
                         variant="contained"
                         color="secondary"
                         onClick={() => {
@@ -72,7 +73,11 @@ const OrdersList = ({ orders, cancelOrder }) => {
                         }}
                       >
                         Cancel
-                      </Button>
+                      </Button> */}
+                      <ConfirmOrderCancel
+                        orderID={order._id}
+                        cancelOrder={cancelOrder}
+                      />
                     </TableCell>
                   </TableRow>
                 )
