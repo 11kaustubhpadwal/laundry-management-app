@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const OrdersList = ({ orders }) => {
+const OrdersList = ({ orders, cancelOrder }) => {
   const classes = useStyles();
 
   if (orders.error !== null) {
@@ -49,12 +49,18 @@ const OrdersList = ({ orders }) => {
           </TableHead>
           <TableBody>
             {orders.orders.map(
-              (order, index) =>
+              (order) =>
                 order.orderStatus === "In progress" && (
-                  <TableRow key={index}>
+                  <TableRow key={order._id}>
                     <TableCell>{order.orderNumber}</TableCell>
                     <TableCell align="center">
-                      <Button variant="contained" color="primary">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          console.log(order._id);
+                        }}
+                      >
                         View
                       </Button>
                     </TableCell>
@@ -65,7 +71,77 @@ const OrdersList = ({ orders }) => {
                       <Chip label={order.orderStatus} color="primary" />
                     </TableCell>
                     <TableCell align="center">
-                      <Button variant="contained" color="secondary">
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => {
+                          cancelOrder(order._id);
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                )
+            )}
+            {orders.orders.map(
+              (order, index) =>
+                order.orderStatus === "Completed" && (
+                  <TableRow key={index}>
+                    <TableCell>{order.orderNumber}</TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          console.log(order._id);
+                        }}
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">
+                      {order.placedOn.toString().slice(0, 10)}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Chip
+                        label={order.orderStatus}
+                        variant="outlined"
+                        color="primary"
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button variant="contained" color="secondary" disabled>
+                        Cancel
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                )
+            )}
+            {orders.orders.map(
+              (order, index) =>
+                order.orderStatus === "Cancelled" && (
+                  <TableRow key={index}>
+                    <TableCell>{order.orderNumber}</TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          console.log(order._id);
+                        }}
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">
+                      {order.placedOn.toString().slice(0, 10)}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Chip label={order.orderStatus} variant="outlined" />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button variant="contained" color="secondary" disabled>
                         Cancel
                       </Button>
                     </TableCell>
@@ -81,6 +157,7 @@ const OrdersList = ({ orders }) => {
 
 OrdersList.propTypes = {
   orders: PropTypes.object.isRequired,
+  cancelOrder: PropTypes.func.isRequired,
 };
 
 export default OrdersList;

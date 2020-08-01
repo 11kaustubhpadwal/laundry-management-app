@@ -44,3 +44,22 @@ export const placeOrder = (formData) => {
     }
   };
 };
+
+// Cancel an order
+export const cancelOrder = (orderID) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        method: "patch",
+        url: `http://localhost:5000/api/orders/${orderID}`,
+        headers: { "x-auth-token": localStorage.getItem("token") },
+      });
+
+      dispatch({ type: CANCEL_ORDER_SUCCESS, payload: "Cancelled." });
+
+      dispatch(getOrders());
+    } catch (error) {
+      dispatch({ type: CANCEL_ORDER_ERROR, payload: error.response.data });
+    }
+  };
+};

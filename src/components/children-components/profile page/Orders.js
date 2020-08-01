@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Orders = ({ orders, placeOrder }) => {
+const Orders = ({ orders, placeOrder, cancelOrder }) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -74,7 +74,7 @@ const Orders = ({ orders, placeOrder }) => {
           </Typography>
         </CardContent>
       </Card>
-      <OrdersList orders={orders} />
+      <OrdersList orders={orders} cancelOrder={cancelOrder} />
       <FormPopup open={open} onClose={handleClose} placeOrder={placeOrder} />
     </div>
   );
@@ -83,6 +83,7 @@ const Orders = ({ orders, placeOrder }) => {
 Orders.propTypes = {
   orders: PropTypes.object.isRequired,
   placeOrder: PropTypes.func.isRequired,
+  cancelOrder: PropTypes.func.isRequired,
 };
 
 export default Orders;

@@ -40,6 +40,18 @@ export default (state = initialState, action) => {
         orderCancelled: action.payload,
       };
     }
+    case CANCEL_ORDER_SUCCESS: {
+      return {
+        ...state,
+        orderCancelled: action.payload,
+      };
+    }
+    case CANCEL_ORDER_ERROR: {
+      return {
+        ...state,
+        orderCancelled: action.payload,
+      };
+    }
     default:
       return state;
   }
