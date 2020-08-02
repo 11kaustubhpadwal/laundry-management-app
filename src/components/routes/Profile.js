@@ -47,7 +47,6 @@ const Profile = ({
   return (
     <Container maxWidth="lg">
       <Navbar />
-      <PersonalInfo user={user} updateInfo={updateInfo} />
       {error !== null && (
         <ToastMessage msg={"Please provide both first and last names."} />
       )}
@@ -58,6 +57,7 @@ const Profile = ({
         <ToastMessage msg={orderCancellingError} />
       )}
       {getOrdersError !== null && <ToastMessage msg={getOrdersError} />}
+      <PersonalInfo user={user} updateInfo={updateInfo} />
       <Orders
         orders={orders}
         placeOrder={placeOrder}

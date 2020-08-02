@@ -4,7 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "23rem",
+    maxWidth: "75%",
+    minWidth: "15rem",
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: "20px",
