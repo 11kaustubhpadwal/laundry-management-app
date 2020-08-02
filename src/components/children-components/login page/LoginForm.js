@@ -5,8 +5,9 @@ import Button from "@material-ui/core/Button";
 import ToastMessage from "../../common/ToastMessage";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { loginUser } from "../../../actions/authActions";
+import PasswordReset from "./PasswordReset";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,11 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     width: "6rem",
-  },
-  link: {
-    textAlign: "center",
-    textDecoration: "none",
-    color: "black",
   },
 }));
 
@@ -52,6 +48,16 @@ const LoginForm = ({ auth: { isAuthenticated, error }, loginUser }) => {
     event.preventDefault();
     loginUser(formData);
     setFormData({ email: "", password: "" });
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -108,9 +114,8 @@ const LoginForm = ({ auth: { isAuthenticated, error }, loginUser }) => {
         </Button>
       </form>
       <div style={{ marginTop: "20px" }}>
-        <Link to="#" className={classes.link}>
-          <strong>Forgot password?</strong>
-        </Link>
+        <strong onClick={handleClickOpen}>Forgot password?</strong>
+        <PasswordReset open={open} handleClose={handleClose} />
       </div>
     </div>
   );
