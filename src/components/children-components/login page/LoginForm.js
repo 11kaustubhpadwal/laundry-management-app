@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import ToastMessage from "../../common/ToastMessage";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { loginUser } from "../../../actions/authActions";
 import PasswordReset from "./PasswordReset";
 
@@ -113,8 +113,10 @@ const LoginForm = ({ auth: { isAuthenticated, error }, loginUser }) => {
           Login
         </Button>
       </form>
-      <div style={{ marginTop: "20px" }}>
-        <strong onClick={handleClickOpen}>Forgot password?</strong>
+      <div style={{ marginTop: "20px", marginBottom: "100px" }}>
+        <Link to="#" style={{ textDecoration: "none", color: "black" }}>
+          <strong onClick={handleClickOpen}>Forgot password?</strong>
+        </Link>
         <PasswordReset open={open} handleClose={handleClose} />
       </div>
     </div>

@@ -4,17 +4,25 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
+import Slide from "@material-ui/core/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const PasswordReset = ({ open, handleClose }) => {
+  const handleClick = () => {
+    console.log("send email.");
+  };
+
   return (
     <div>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        TransitionComponent={Transition}
       >
         <DialogContent>
           <p style={{ marginBottom: "20px" }}>
@@ -25,13 +33,7 @@ const PasswordReset = ({ open, handleClose }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
-          <Button
-            onClick={() => {
-              console.log("send email.");
-            }}
-          >
-            Send
-          </Button>
+          <Button onClick={handleClick}>Send</Button>
         </DialogActions>
       </Dialog>
     </div>
