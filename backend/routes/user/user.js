@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const { v4: uuidv4 } = require("uuid");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 const User = require("../../models/User");
 
@@ -116,6 +118,73 @@ router.patch(
       res
         .status(400)
         .json({ msg: "Failed to update the profile. Please try again." });
+    }
+  }
+);
+
+// @route       POST /api/users/forgot-password
+// @desc        Send password reset link
+// @access      Public
+router.post(
+  "/forgot-password",
+  [check("email", "Please enter a valid email address.").isEmail()],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      let email = req.body.email;
+
+      let user = await User.findOne({ email: email });
+
+      if (!user) {
+        res.status(400).json({ msg: "User not found." });
+      } else {
+        const token = crypto.randomBytes(20).toString("hex");
+
+        user.update({
+          resetPasswordToken: token,
+          resetPasswordExpires: Date.now() + 3600000,
+        });
+
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD,
+          },
+        });
+
+        const mailOptions = {
+          from: "getlaundered@gmail.com",
+          to: user.email,
+          subject: "Link to Reset Password",
+          text:
+            "You are  receiving this email because you (or someone else) have requested to reset the password of your account.\n\n" +
+            "Please click on the following link to complete the process within one hour of the reception of this email : \n\n" +
+            "http://localhost:3000/forgot-password/" +
+            token +
+            "\n\n" +
+            "If you did not request this, please ignore this email and your password will remain unchanged.\n",
+        };
+
+        transporter.sendMail(mailOptions, (err, response) => {
+          if (err) {
+            res
+              .status(400)
+              .json({ msg: "Failed to send the password reset link." }, err);
+          } else {
+            res.json({
+              msg: "Password rest link sent. Please check your email's inbox.",
+              response,
+            });
+          }
+        });
+      }
+    } catch (error) {
+      res.status(400).json({ msg: "Failed to send the password reset link." });
     }
   }
 );

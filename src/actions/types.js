@@ -21,3 +21,7 @@ export const CLEAR_TOASTS = "CLEAR_TOASTS";
 // Personal information edit
 export const INFO_UPDATE_ERROR = "INFO_UPDATE_ERROR";
 export const CLEAR_UPDATE_ERROR = "CLEAR_UPDATE_ERROR";
+
+// Password reset
+export const SEND_EMAIL_SUCCESS = "SEND_EMAIL_SUCCESS";
+export const SEND_EMAIL_ERROR = "SEND_EMAIL_ERROR";
