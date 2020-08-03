@@ -7,9 +7,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
+import ToastMessage from "../common/ToastMessage";
+import SuccessToast from "../children-components/profile page/SuccessToast";
 
 import { connect } from "react-redux";
-import { verifyLink } from "../../actions/passwordResetActions";
+import { verifyLink, updatePassword } from "../../actions/passwordResetActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +29,13 @@ const useStyles = makeStyles((theme) => ({
 
 const PasswordResetScreen = ({
   verifyLink,
-  passwordReset: { verifyLinkError, verifyLinkSuccess },
+  updatePassword,
+  passwordReset: {
+    verifyLinkError,
+    verifyLinkSuccess,
+    passwordUpdateSuccess,
+    passwordUpdateError,
+  },
 }) => {
   let { token } = useParams();
 
@@ -45,7 +53,7 @@ const PasswordResetScreen = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(password);
+    updatePassword(token, password);
     setPassword("");
   };
 
@@ -56,6 +64,12 @@ const PasswordResetScreen = ({
         <div
           style={{ textAlign: "center", margin: "20px", marginBottom: "60px" }}
         >
+          {passwordUpdateError !== null && (
+            <ToastMessage msg={passwordUpdateError} />
+          )}
+          {passwordUpdateSuccess !== null && (
+            <SuccessToast msg={passwordUpdateSuccess} />
+          )}
           <h1>Change your password</h1>
           <div style={{ marginTop: "30px" }}>
             <h3>Please enter your new password.</h3>
@@ -83,15 +97,40 @@ const PasswordResetScreen = ({
                 onChange={handleInputChange}
               />
             </div>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              style={{ margin: "20px" }}
-              type="submit"
-            >
-              Submit
-            </Button>
+            {passwordUpdateSuccess !== null && (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                style={{ margin: "20px" }}
+                type="submit"
+                disabled
+              >
+                Submit
+              </Button>
+            )}
+            {passwordUpdateSuccess === null && passwordUpdateError !== null && (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                style={{ margin: "20px" }}
+                type="submit"
+              >
+                Submit
+              </Button>
+            )}
+            {passwordUpdateError === null && passwordUpdateSuccess === null && (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                style={{ margin: "20px" }}
+                type="submit"
+              >
+                Submit
+              </Button>
+            )}
           </form>
         </div>
       )}
@@ -113,4 +152,6 @@ PasswordResetScreen.propTypes = {
 
 const mapStateToProps = (state) => ({ passwordReset: state.passwordReset });
 
-export default connect(mapStateToProps, { verifyLink })(PasswordResetScreen);
+export default connect(mapStateToProps, { verifyLink, updatePassword })(
+  PasswordResetScreen
+);

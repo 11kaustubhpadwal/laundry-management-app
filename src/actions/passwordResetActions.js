@@ -4,9 +4,12 @@ import {
   CLEAR_FEEDBACK,
   VERIFY_LINK_ERROR,
   VERIFY_LINK_SUCCESS,
+  PASSWORD_UPDATE_ERROR,
+  PASSWORD_UPDATE_SUCCESS,
 } from "./types";
 import axios from "axios";
 
+// Send password reset link to the email address provided
 export const sendEmail = (email) => {
   return async (dispatch) => {
     try {
@@ -19,7 +22,10 @@ export const sendEmail = (email) => {
         data: { email: email },
       });
 
-      dispatch({ type: SEND_EMAIL_SUCCESS, payload: response.data.msg });
+      dispatch({
+        type: SEND_EMAIL_SUCCESS,
+        payload: response.data.msg,
+      });
 
       setTimeout(() => {
         dispatch({ type: CLEAR_FEEDBACK });
@@ -44,6 +50,7 @@ export const sendEmail = (email) => {
   };
 };
 
+// Verify password reset link
 export const verifyLink = (token) => {
   return async (dispatch) => {
     try {
@@ -55,6 +62,36 @@ export const verifyLink = (token) => {
       dispatch({ type: VERIFY_LINK_SUCCESS, payload: response.data.msg });
     } catch (error) {
       dispatch({ type: VERIFY_LINK_ERROR, payload: error.response.data.msg });
+    }
+  };
+};
+
+// Update password
+export const updatePassword = (token, password) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        method: "patch",
+        url: "http://localhost:5000/api/users/update-password/" + token,
+        data: {
+          password: password,
+        },
+      });
+
+      dispatch({ type: PASSWORD_UPDATE_SUCCESS, payload: response.data.msg });
+
+      setTimeout(() => {
+        dispatch({ type: CLEAR_FEEDBACK });
+      }, 8000);
+    } catch (error) {
+      dispatch({
+        type: PASSWORD_UPDATE_ERROR,
+        payload: error.response.data.msg,
+      });
+
+      setTimeout(() => {
+        dispatch({ type: CLEAR_FEEDBACK });
+      }, 8000);
     }
   };
 };

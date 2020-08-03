@@ -4,6 +4,8 @@ import {
   CLEAR_FEEDBACK,
   VERIFY_LINK_ERROR,
   VERIFY_LINK_SUCCESS,
+  PASSWORD_UPDATE_ERROR,
+  PASSWORD_UPDATE_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -11,6 +13,8 @@ const initialState = {
   emailSendError: null,
   verifyLinkError: null,
   verifyLinkSuccess: null,
+  passwordUpdateSuccess: null,
+  passwordUpdateError: null,
 };
 
 export default (state = initialState, action) => {
@@ -39,11 +43,25 @@ export default (state = initialState, action) => {
         verifyLinkError: action.payload,
       };
     }
+    case PASSWORD_UPDATE_SUCCESS: {
+      return {
+        ...state,
+        passwordUpdateSuccess: action.payload,
+      };
+    }
+    case PASSWORD_UPDATE_ERROR: {
+      return {
+        ...state,
+        passwordUpdateError: action.payload,
+      };
+    }
     case CLEAR_FEEDBACK: {
       return {
         ...state,
-        emailSendError: null,
         emailSent: null,
+        emailSendError: null,
+        passwordUpdateSuccess: null,
+        passwordUpdateError: null,
       };
     }
     default:

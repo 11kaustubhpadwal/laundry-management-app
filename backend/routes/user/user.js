@@ -213,15 +213,15 @@ router.get("/forgot-password/:token", async (req, res) => {
   }
 });
 
-// @route       PATCH /api/users/update-password
+// @route       PATCH /api/users/update-password/:token
 // @desc        Update password
 // @access      Public
-router.patch("/update-password", async (req, res) => {
-  let { password, email } = req.body;
+router.patch("/update-password/:token", async (req, res) => {
+  let { password } = req.body;
 
   try {
     let user = await User.findOne({
-      email: email,
+      resetPasswordToken: req.params.token,
       resetPasswordExpires: { $gt: Date.now() },
     });
 
@@ -230,20 +230,26 @@ router.patch("/update-password", async (req, res) => {
     password = await bcrypt.hash(password, salt);
 
     if (!user) {
-      res.status(400).json({ msg: "User not found." });
+      res.status(400).json({
+        msg: "User not found. Please get another link and try again.",
+      });
     } else {
       user = await User.findOneAndUpdate(
-        { email: req.body.email },
+        { resetPasswordToken: req.params.token },
         { $set: { password: password } },
         { new: true }
       );
 
-      res.json({ msg: "Password changed successfully." });
+      res.json({
+        msg:
+          "Password changed successfully. Please go to the login page to login using your new password.",
+      });
     }
   } catch (error) {
-    res
-      .status(400)
-      .json({ msg: "Failed to update the password. Please try again." });
+    res.status(400).json({
+      msg:
+        "Failed to update the password. Please get another link and try again.",
+    });
   }
 });
 
