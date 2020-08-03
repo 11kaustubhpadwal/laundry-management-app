@@ -3,10 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ToastMessage from "../../common/ToastMessage";
+import SuccessToast from "../../children-components/profile page/SuccessToast";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useHistory, Link } from "react-router-dom";
 import { loginUser } from "../../../actions/authActions";
+import { sendEmail } from "../../../actions/passwordResetActions";
 import PasswordReset from "./PasswordReset";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginForm = ({ auth: { isAuthenticated, error }, loginUser }) => {
+const LoginForm = ({
+  auth: { isAuthenticated, error },
+  passwordReset: { emailSendError, emailSent },
+  loginUser,
+  sendEmail,
+}) => {
   const history = useHistory();
 
   useEffect(() => {
@@ -63,6 +70,8 @@ const LoginForm = ({ auth: { isAuthenticated, error }, loginUser }) => {
   return (
     <div style={{ textAlign: "center", margin: "20px", marginBottom: "60px" }}>
       {error !== null && <ToastMessage msg={error.msg} />}
+      {emailSendError !== null && <ToastMessage msg={emailSendError} />}
+      {emailSent !== null && <SuccessToast msg={emailSent} />}
       <h1>Login</h1>
       <div style={{ marginTop: "30px" }}>
         <h3>Please enter your credentials.</h3>
@@ -117,7 +126,11 @@ const LoginForm = ({ auth: { isAuthenticated, error }, loginUser }) => {
         <Link to="#" style={{ textDecoration: "none", color: "black" }}>
           <strong onClick={handleClickOpen}>Forgot password?</strong>
         </Link>
-        <PasswordReset open={open} handleClose={handleClose} />
+        <PasswordReset
+          open={open}
+          handleClose={handleClose}
+          sendEmail={sendEmail}
+        />
       </div>
     </div>
   );
@@ -125,10 +138,12 @@ const LoginForm = ({ auth: { isAuthenticated, error }, loginUser }) => {
 
 LoginForm.propTypes = {
   auth: PropTypes.object.isRequired,
+  passwordReset: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  passwordReset: state.passwordReset,
 });
 
-export default connect(mapStateToProps, { loginUser })(LoginForm);
+export default connect(mapStateToProps, { loginUser, sendEmail })(LoginForm);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,9 +12,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const PasswordReset = ({ open, handleClose }) => {
+const PasswordReset = ({ open, handleClose, sendEmail }) => {
+  const [email, setEmail] = useState("");
+
+  const handleInputChange = (event) => {
+    setEmail(event.target.value);
+  };
+
   const handleClick = () => {
-    console.log("send email.");
+    sendEmail(email);
+    setEmail("");
+    handleClose();
   };
 
   return (
@@ -39,6 +47,8 @@ const PasswordReset = ({ open, handleClose }) => {
             autoFocus
             required
             fullWidth
+            value={email}
+            onChange={handleInputChange}
           />
         </DialogContent>
         <DialogActions>
@@ -53,6 +63,7 @@ const PasswordReset = ({ open, handleClose }) => {
 PasswordReset.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  sendEmail: PropTypes.func.isRequired,
 };
 
 export default PasswordReset;

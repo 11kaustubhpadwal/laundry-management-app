@@ -127,7 +127,7 @@ router.patch(
 // @access      Public
 router.post(
   "/forgot-password",
-  [check("email", "Please enter a valid email address.").isEmail()],
+  check("email", "Please enter a valid email address.").isEmail(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -182,8 +182,7 @@ router.post(
               .json({ msg: "Failed to send the password reset link.", err });
           } else {
             res.json({
-              msg: "Password rest link sent. Please check your email's inbox.",
-              response,
+              msg: "Password rest link sent. Please check your inbox.",
             });
           }
         });
