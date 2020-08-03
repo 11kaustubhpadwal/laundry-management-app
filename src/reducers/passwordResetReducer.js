@@ -2,11 +2,15 @@ import {
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
   CLEAR_FEEDBACK,
+  VERIFY_LINK_ERROR,
+  VERIFY_LINK_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
   emailSent: null,
   emailSendError: null,
+  verifyLinkError: null,
+  verifyLinkSuccess: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +25,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         emailSendError: action.payload,
+      };
+    }
+    case VERIFY_LINK_SUCCESS: {
+      return {
+        ...state,
+        verifyLinkSuccess: action.payload,
+      };
+    }
+    case VERIFY_LINK_ERROR: {
+      return {
+        ...state,
+        verifyLinkError: action.payload,
       };
     }
     case CLEAR_FEEDBACK: {

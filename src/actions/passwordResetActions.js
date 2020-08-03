@@ -1,4 +1,10 @@
-import { SEND_EMAIL_ERROR, SEND_EMAIL_SUCCESS, CLEAR_FEEDBACK } from "./types";
+import {
+  SEND_EMAIL_ERROR,
+  SEND_EMAIL_SUCCESS,
+  CLEAR_FEEDBACK,
+  VERIFY_LINK_ERROR,
+  VERIFY_LINK_SUCCESS,
+} from "./types";
 import axios from "axios";
 
 export const sendEmail = (email) => {
@@ -34,6 +40,21 @@ export const sendEmail = (email) => {
       setTimeout(() => {
         dispatch({ type: CLEAR_FEEDBACK });
       }, 8000);
+    }
+  };
+};
+
+export const verifyLink = (token) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "http://localhost:5000/api/users/forgot-password/" + token,
+      });
+
+      dispatch({ type: VERIFY_LINK_SUCCESS, payload: response.data.msg });
+    } catch (error) {
+      dispatch({ type: VERIFY_LINK_ERROR, payload: error.response.data.msg });
     }
   };
 };
