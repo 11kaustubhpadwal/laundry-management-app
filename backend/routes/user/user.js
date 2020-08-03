@@ -144,10 +144,15 @@ router.post(
       } else {
         const token = crypto.randomBytes(20).toString("hex");
 
-        user.update({
-          resetPasswordToken: token,
-          resetPasswordExpires: Date.now() + 3600000,
-        });
+        user = await User.findOneAndUpdate(
+          { email: email },
+          {
+            $set: {
+              resetPasswordToken: token,
+              resetPasswordExpires: Date.now() + 3600000,
+            },
+          }
+        );
 
         const transporter = nodemailer.createTransport({
           service: "gmail",
@@ -174,7 +179,7 @@ router.post(
           if (err) {
             res
               .status(400)
-              .json({ msg: "Failed to send the password reset link." }, err);
+              .json({ msg: "Failed to send the password reset link.", err });
           } else {
             res.json({
               msg: "Password rest link sent. Please check your email's inbox.",
@@ -188,5 +193,59 @@ router.post(
     }
   }
 );
+
+// @route       GET /api/users/forgot-password/:token
+// @desc        Verify password reset link
+// @access      Public
+router.get("/forgot-password/:token", async (req, res) => {
+  try {
+    let user = await User.findOne({
+      resetPasswordToken: req.params.token.toString(),
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (user === null) {
+      res.status(400).json({ msg: "The link has been expired." });
+    } else {
+      res.json({ msg: "Password reset link is valid." });
+    }
+  } catch (error) {
+    res.status(400).json({ msg: "The link is invalid." });
+  }
+});
+
+// @route       PATCH /api/users/update-password
+// @desc        Update password
+// @access      Public
+router.patch("/update-password", async (req, res) => {
+  let { password, email } = req.body;
+
+  try {
+    let user = await User.findOne({
+      email: email,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    const salt = await bcrypt.genSalt(10);
+
+    password = await bcrypt.hash(password, salt);
+
+    if (!user) {
+      res.status(400).json({ msg: "User not found." });
+    } else {
+      user = await User.findOneAndUpdate(
+        { email: req.body.email },
+        { $set: { password: password } },
+        { new: true }
+      );
+
+      res.json({ msg: "Password changed successfully." });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .json({ msg: "Failed to update the password. Please try again." });
+  }
+});
 
 module.exports = router;

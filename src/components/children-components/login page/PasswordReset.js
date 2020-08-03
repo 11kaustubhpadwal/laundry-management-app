@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import Slide from "@material-ui/core/Slide";
 
@@ -24,12 +25,21 @@ const PasswordReset = ({ open, handleClose }) => {
         aria-labelledby="form-dialog-title"
         TransitionComponent={Transition}
       >
+        <DialogTitle id="alert-dialog-slide-title">
+          {"Forgot password?"}
+        </DialogTitle>
         <DialogContent>
-          <p style={{ marginBottom: "20px" }}>
-            To get the password reset link, please enter your email address
-            here.
+          <p style={{ marginBottom: "20px", marginTop: 0 }}>
+            Please enter your email address to get the link to reset your
+            account's password.
           </p>
-          <TextField label="Email Address" type="email" required fullWidth />
+          <TextField
+            label="Email Address"
+            type="email"
+            autoFocus
+            required
+            fullWidth
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>

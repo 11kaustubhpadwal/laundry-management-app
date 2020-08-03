@@ -9,6 +9,7 @@ import Washing from "./components/routes/Washing";
 import Drying from "./components/routes/Drying";
 import Bleaching from "./components/routes/Bleaching";
 import Profile from "./components/routes/Profile";
+import PasswordResetScreen from "./components/routes/PasswordResetScreen";
 import NotFound from "./components/common/NotFound";
 import checkAuthToken from "./utils/checkAuthToken";
 
@@ -53,6 +54,11 @@ function App() {
               <Route exact path="/drying" component={Drying} />
               <Route exact path="/bleaching" component={Bleaching} />
               <Route exact path="/profile" component={Profile} />
+              <Route
+                exact
+                path="/forgot-password/:token"
+                component={PasswordResetScreen}
+              />
               <Route path="*">
                 <NotFound />
               </Route>
