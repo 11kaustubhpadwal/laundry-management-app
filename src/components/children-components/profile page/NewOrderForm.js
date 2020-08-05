@@ -11,6 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import PaymentIcon from "@material-ui/icons/Payment";
 import MoneyIcon from "@material-ui/icons/Money";
 import PropTypes from "prop-types";
+import ToastMessage from "../../common/ToastMessage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,13 +38,14 @@ const NewOrderForm = (props) => {
 
   const { placeOrder } = props;
 
+  const [error, setError] = useState(false);
+
   const [requiredService, setRequiredService] = useState(null);
   const [washing, setWashing] = useState(false);
   const [bleaching, setBleaching] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [clothes, setClothes] = useState(0);
   const [drying, setDrying] = useState(false);
-  const [dryingQuantity, setDryingQuantity] = useState(0);
   const [disableSelection, setDisableSelection] = useState(false);
   const [cardPayment, setCardPayment] = useState(false);
   const [cashPayment, setCashPayment] = useState(false);
@@ -62,6 +64,9 @@ const NewOrderForm = (props) => {
       setWashing(true);
       setBleaching(false);
       setDisableSelection(false);
+      if (quantity !== 0) {
+        setFinalAmount(quantity);
+      }
     }
     if (event.target.value === "Bleaching") {
       setWashing(false);
@@ -75,7 +80,7 @@ const NewOrderForm = (props) => {
 
   const handleQuantityChange = (event) => {
     setQuantity(event.target.value);
-    setFinalAmount(event.target.value + dryingQuantity);
+    setFinalAmount(event.target.value);
   };
 
   const handleClothesChange = (event) => {
@@ -86,18 +91,29 @@ const NewOrderForm = (props) => {
   const handleDryingChange = () => {
     if (!drying) {
       setDrying(true);
-      setFinalAmount(finalAmount + dryingQuantity);
+
+      if (finalAmount === 17) {
+        setFinalAmount(17 + 7);
+      } else if (finalAmount === 27) {
+        setFinalAmount(27 + 14);
+      } else if (finalAmount === 37) {
+        setFinalAmount(37 + 21);
+      } else {
+        setFinalAmount(finalAmount);
+      }
     } else {
       setDrying(false);
-      setFinalAmount(finalAmount - dryingQuantity);
-      setDryingQuantity(0);
+
+      if (finalAmount === 17 + 7) {
+        setFinalAmount(17);
+      } else if (finalAmount === 27 + 14) {
+        setFinalAmount(27);
+      } else if (finalAmount === 37 + 21) {
+        setFinalAmount(37);
+      } else {
+        setFinalAmount(finalAmount);
+      }
     }
-  };
-
-  const handleDryingQuantityChange = (event) => {
-    setDryingQuantity(event.target.value);
-
-    setFinalAmount(event.target.value + quantity);
   };
 
   const handlePaymentSelection = (event) => {
@@ -120,50 +136,49 @@ const NewOrderForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    let pickupDate = otherDetails.dateTime.toString().slice(0, 10);
-    let pickupTime = otherDetails.dateTime.toString().slice(11, 16);
+    if (finalAmount !== 0 || finalAmount > 0) {
+      let pickupDate = otherDetails.dateTime.toString().slice(0, 10);
+      let pickupTime = otherDetails.dateTime.toString().slice(11, 16);
 
-    let paymentMethod = "";
-    if (cardPayment === true) {
-      paymentMethod = "Card";
+      let paymentMethod = "";
+      if (cardPayment === true) {
+        paymentMethod = "Card";
+      }
+      if (cashPayment === true) {
+        paymentMethod = "Cash";
+      }
+
+      let quantityFinal = 0;
+      if (quantity === 17) {
+        quantityFinal = 15;
+      } else if (quantity === 27) {
+        quantityFinal = 25;
+      } else if (quantity === 37) {
+        quantityFinal = 35;
+      }
+
+      let formData = {
+        firstName: otherDetails.firstName,
+        lastName: otherDetails.lastName,
+        service: requiredService,
+        quantity: quantityFinal,
+        numberOfClothes: clothes,
+        optionalService: drying,
+        pickupDate: pickupDate,
+        pickupTime: pickupTime,
+        address: otherDetails.address,
+        paymentMethod: paymentMethod,
+        totalAmount: finalAmount,
+      };
+
+      placeOrder(formData);
+      props.handleClose();
+    } else {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 8000);
     }
-    if (cashPayment === true) {
-      paymentMethod = "Cash";
-    }
-
-    let quantityFinal = 0;
-    if (quantity === 17) {
-      quantityFinal = 15;
-    } else if (quantity === 27) {
-      quantityFinal = 25;
-    } else if (quantity === 37) {
-      quantityFinal = 35;
-    }
-
-    let optionalQuantityFinal = 0;
-    if (dryingQuantity === 7) {
-      optionalQuantityFinal = 15;
-    } else if (dryingQuantity === 14) {
-      optionalQuantityFinal = 25;
-    }
-
-    let formData = {
-      firstName: otherDetails.firstName,
-      lastName: otherDetails.lastName,
-      service: requiredService,
-      quantity: quantityFinal,
-      numberOfClothes: clothes,
-      optionalService: drying,
-      optionalServiceQuantity: optionalQuantityFinal,
-      pickupDate: pickupDate,
-      pickupTime: pickupTime,
-      address: otherDetails.address,
-      paymentMethod: paymentMethod,
-      totalAmount: finalAmount,
-    };
-
-    placeOrder(formData);
-    props.handleClose();
   };
 
   return (
@@ -261,28 +276,6 @@ const NewOrderForm = (props) => {
             />
           )}
         </div>
-        {drying && (
-          <Fragment>
-            <p style={{ fontWeight: 600 }}>
-              Please select quantity for drying clothes -{" "}
-            </p>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>Quantity *</InputLabel>
-              <Select
-                value={dryingQuantity}
-                onChange={handleDryingQuantityChange}
-                label="Quantity"
-              >
-                <MenuItem value={7} name="15">
-                  15 kg
-                </MenuItem>
-                <MenuItem value={14} name="25">
-                  25 kg
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </Fragment>
-        )}
       </div>
       <div style={{ marginTop: "30px" }}>
         <p style={{ fontWeight: 600 }}>
@@ -350,6 +343,13 @@ const NewOrderForm = (props) => {
         <p>
           <strong>Total - {finalAmount} PLN</strong>
         </p>
+      </div>
+      <div style={{ marginTop: "30px" }}>
+        {error !== false && (
+          <ToastMessage
+            msg={"Please fill out all the fields in the form correctly."}
+          />
+        )}
       </div>
       <Button
         variant="contained"

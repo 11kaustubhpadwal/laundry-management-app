@@ -70,9 +70,6 @@ const OrderInfo = ({ order }) => {
               style={{ marginTop: "15px" }}
             >{`Optional service - Drying`}</Typography>
           )}
-          {order.optionalService === "true" && (
-            <Typography variant="h6">{`Drying quantity - ${order.optionalServiceQuantity} kg`}</Typography>
-          )}
           {order.numberOfClothes !== 0 && (
             <Typography variant="h6">{`Number of clothes - ${order.numberOfClothes}`}</Typography>
           )}

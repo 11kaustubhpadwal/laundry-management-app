@@ -29,9 +29,6 @@ const OrderSchema = new mongoose.Schema({
   optionalService: {
     type: String,
   },
-  optionalServiceQuantity: {
-    type: Number,
-  },
   quantity: {
     type: Number,
   },

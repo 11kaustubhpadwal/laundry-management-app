@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Medium from "../../../assets/15kg.svg";
 import Small from "../../../assets/25kg.svg";
+import Large from "../../../assets/35kg.svg";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
@@ -33,7 +34,7 @@ const DryingService = () => {
         marginTop: "50px",
       }}
     >
-      <Grid item xs={12} sm={6} md={6} lg={6} className={classes.root}>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={classes.root}>
         <Card className={classes.services}>
           <CardActionArea>
             <CardContent>
@@ -49,15 +50,15 @@ const DryingService = () => {
                 Price - 7 PLN.
               </Typography>
             </CardContent>
+            <CardActions>
+              <Typography variant="body1" color="textPrimary" component="p">
+                *Drying is optional and should be checked during checkout.
+              </Typography>
+            </CardActions>
           </CardActionArea>
-          <CardActions
-            style={{ justifyContent: "center", paddingBottom: "20px" }}
-          >
-            *Drying is optional and should be selected during checkout.
-          </CardActions>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={6} md={6} lg={6} className={classes.root}>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={classes.root}>
         <Card className={classes.services}>
           <CardActionArea>
             <CardContent>
@@ -73,12 +74,36 @@ const DryingService = () => {
                 Price - 14 PLN
               </Typography>
             </CardContent>
+            <CardActions>
+              <Typography variant="body1" color="textPrimary" component="p">
+                *Drying is optional and should be checked during checkout.
+              </Typography>
+            </CardActions>
           </CardActionArea>
-          <CardActions
-            style={{ justifyContent: "center", paddingBottom: "20px" }}
-          >
-            *Drying is optional and should be selected during checkout.
-          </CardActions>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4} lg={4} className={classes.root}>
+        <Card className={classes.services}>
+          <CardActionArea>
+            <CardContent>
+              <img
+                src={Large}
+                alt="35 kg"
+                style={{ width: "10rem", margin: "10px" }}
+              ></img>
+              <Typography gutterBottom variant="h5" component="h2">
+                Quantity - 35 kg
+              </Typography>
+              <Typography variant="body2" color="textPrimary" component="p">
+                Price - 21 PLN
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Typography variant="body1" color="textPrimary" component="p">
+                *Drying is optional and should be checked during checkout.
+              </Typography>
+            </CardActions>
+          </CardActionArea>
         </Card>
       </Grid>
     </Grid>
