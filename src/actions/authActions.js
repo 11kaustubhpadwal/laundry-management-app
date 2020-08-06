@@ -2,7 +2,6 @@ import axios from "axios";
 import {
   REGISTER_SUCCESS,
   REGISTER_ERROR,
-  SET_LOADING,
   CLEAR_ERROR,
   GET_USER_ERROR,
   GET_USER_SUCCESS,
