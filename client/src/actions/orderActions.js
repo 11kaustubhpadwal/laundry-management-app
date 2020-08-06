@@ -15,7 +15,7 @@ export const getOrders = () => {
     try {
       const response = await axios({
         method: "get",
-        url: "http://localhost:5000/api/orders",
+        url: "/api/orders",
         headers: { "x-auth-token": localStorage.getItem("token") },
       });
 
@@ -44,7 +44,7 @@ export const placeOrder = (formData) => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:5000/api/orders",
+        url: "/api/orders",
         headers: { "x-auth-token": localStorage.getItem("token") },
         data: formData,
       });
@@ -74,7 +74,7 @@ export const cancelOrder = (orderID) => {
     try {
       const response = await axios({
         method: "patch",
-        url: `http://localhost:5000/api/orders/${orderID}`,
+        url: `/api/orders/${orderID}`,
         headers: { "x-auth-token": localStorage.getItem("token") },
       });
 

@@ -18,7 +18,7 @@ export const sendEmail = (email) => {
 
       const response = await axios({
         method: "post",
-        url: "http://localhost:5000/api/users/forgot-password",
+        url: "/api/users/forgot-password",
         headers: {
           "Content-Type": "application/json",
         },
@@ -61,7 +61,7 @@ export const verifyLink = (token) => {
 
       const response = await axios({
         method: "get",
-        url: "http://localhost:5000/api/users/forgot-password/" + token,
+        url: "/api/users/forgot-password/" + token,
       });
 
       dispatch({ type: VERIFY_LINK_SUCCESS, payload: response.data.msg });
@@ -79,7 +79,7 @@ export const updatePassword = (token, password) => {
 
       const response = await axios({
         method: "patch",
-        url: "http://localhost:5000/api/users/update-password/" + token,
+        url: "/api/users/update-password/" + token,
         data: {
           password: password,
         },

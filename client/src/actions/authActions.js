@@ -18,7 +18,7 @@ export const getUser = () => {
     try {
       const response = await axios({
         method: "get",
-        url: "http://localhost:5000/api/auth",
+        url: "/api/auth",
         headers: { "x-auth-token": localStorage.getItem("token") },
       });
 
@@ -40,7 +40,7 @@ export const registerUser = (formData) => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:5000/api/users",
+        url: "/api/users",
         headers: {
           "Content-Type": "application/json",
         },
@@ -68,7 +68,7 @@ export const loginUser = (formData) => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:5000/api/auth",
+        url: "/api/auth",
         headers: {
           "Content-Type": "application/json",
         },
@@ -96,7 +96,7 @@ export const updateInfo = (formData) => {
     try {
       const response = await axios({
         method: "patch",
-        url: "http://localhost:5000/api/users",
+        url: "/api/users",
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": localStorage.getItem("token"),
