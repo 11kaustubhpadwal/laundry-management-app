@@ -53,6 +53,7 @@ const PasswordResetScreen = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     updatePassword(token, password);
     setPassword("");
   };

@@ -79,10 +79,6 @@ export const updatePassword = (token, password) => {
       });
 
       dispatch({ type: PASSWORD_UPDATE_SUCCESS, payload: response.data.msg });
-
-      setTimeout(() => {
-        dispatch({ type: CLEAR_FEEDBACK });
-      }, 8000);
     } catch (error) {
       dispatch({
         type: PASSWORD_UPDATE_ERROR,
