@@ -236,13 +236,12 @@ router.patch("/update-password/:token", async (req, res) => {
     } else {
       user = await User.findOneAndUpdate(
         { resetPasswordToken: req.params.token },
-        { $set: { password: password } },
+        { $set: { password: password, resetPasswordToken: null } },
         { new: true }
       );
 
       res.json({
-        msg:
-          "Password changed successfully. Please go to the login page to login using your new password.",
+        msg: "Password changed successfully.",
       });
     }
   } catch (error) {
