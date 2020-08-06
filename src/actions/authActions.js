@@ -123,8 +123,3 @@ export const logoutUser = () => {
     dispatch({ type: LOGOUT });
   };
 };
-
-// Set loading
-export const setLoading = () => {
-  return { type: SET_LOADING };
-};

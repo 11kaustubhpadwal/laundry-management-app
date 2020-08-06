@@ -6,6 +6,7 @@ import {
   VERIFY_LINK_SUCCESS,
   PASSWORD_UPDATE_ERROR,
   PASSWORD_UPDATE_SUCCESS,
+  SET_LOADING,
 } from "./types";
 import axios from "axios";
 
@@ -13,6 +14,8 @@ import axios from "axios";
 export const sendEmail = (email) => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading());
+
       const response = await axios({
         method: "post",
         url: "http://localhost:5000/api/users/forgot-password",
@@ -54,6 +57,8 @@ export const sendEmail = (email) => {
 export const verifyLink = (token) => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading());
+
       const response = await axios({
         method: "get",
         url: "http://localhost:5000/api/users/forgot-password/" + token,
@@ -70,6 +75,8 @@ export const verifyLink = (token) => {
 export const updatePassword = (token, password) => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading());
+
       const response = await axios({
         method: "patch",
         url: "http://localhost:5000/api/users/update-password/" + token,
@@ -90,4 +97,9 @@ export const updatePassword = (token, password) => {
       }, 8000);
     }
   };
+};
+
+// Set loading
+export const setLoading = () => {
+  return { type: SET_LOADING };
 };

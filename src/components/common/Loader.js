@@ -10,11 +10,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Loader = () => {
+const Loader = ({ customStyle }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={customStyle}>
       <CircularProgress />
     </div>
   );

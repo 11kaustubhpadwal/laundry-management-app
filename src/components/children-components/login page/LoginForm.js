@@ -10,6 +10,7 @@ import { useHistory, Link } from "react-router-dom";
 import { loginUser } from "../../../actions/authActions";
 import { sendEmail } from "../../../actions/passwordResetActions";
 import PasswordReset from "./PasswordReset";
+import Loader from "../../common/Loader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = ({
   auth: { isAuthenticated, error },
-  passwordReset: { emailSendError, emailSent },
+  passwordReset: { emailSendError, emailSent, loading },
   loginUser,
   sendEmail,
 }) => {
@@ -123,9 +124,12 @@ const LoginForm = ({
         </Button>
       </form>
       <div style={{ marginTop: "20px", marginBottom: "100px" }}>
-        <Link to="#" style={{ textDecoration: "none", color: "black" }}>
-          <strong onClick={handleClickOpen}>Forgot password?</strong>
-        </Link>
+        {loading && <Loader customStyle={{ marginTop: 0 }} />}
+        {!loading && (
+          <Link to="#" style={{ textDecoration: "none", color: "black" }}>
+            <strong onClick={handleClickOpen}>Forgot password?</strong>
+          </Link>
+        )}
         <PasswordReset
           open={open}
           handleClose={handleClose}
