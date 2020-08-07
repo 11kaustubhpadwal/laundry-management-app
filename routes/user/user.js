@@ -157,8 +157,8 @@ router.post(
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-            user: process.env.EMAIL,
-            pass: process.env.PASSWORD,
+            user: process.env.EMAIL_PROD,
+            pass: process.env.PASSWORD_PROD,
           },
         });
 
