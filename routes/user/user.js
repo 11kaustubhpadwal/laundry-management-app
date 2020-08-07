@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
-const { v4: uuidv4 } = require("uuid");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
@@ -39,14 +38,11 @@ router.post(
         res.status(400).json({ msg: "User already exists." });
       }
 
-      let referenceNumber = uuidv4();
-
       let user = new User({
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
-        referenceNumber,
       });
 
       const salt = await bcrypt.genSalt(10);
