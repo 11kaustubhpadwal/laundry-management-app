@@ -169,7 +169,7 @@ router.post(
           text:
             "You are  receiving this email because you (or someone else) have requested to reset the password of your account.\n\n" +
             "Please click on the following link to complete the process within one hour of the reception of this email : \n\n" +
-            "https://get-laundered.herokuapp.com/" +
+            "https://get-laundered.herokuapp.com/forgot-password/" +
             token +
             "\n\n" +
             "If you did not request this, please ignore this email and your password will remain unchanged.\n",
