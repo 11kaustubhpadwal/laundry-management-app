@@ -59,13 +59,11 @@ router.post(
         payload,
         process.env.JWT_SECRET,
         {
-          expiresIn: 36000,
+          expiresIn: 60 * 60,
         },
         (err, token) => {
           if (err) {
-            res
-              .status(400)
-              .json({ msg: "An error occurred. Please try again." });
+            throw err;
           } else {
             res.json({ token });
           }

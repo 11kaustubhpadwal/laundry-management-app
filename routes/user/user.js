@@ -36,43 +36,41 @@ router.post(
 
       if (userExists) {
         res.status(400).json({ msg: "User already exists." });
-      }
+      } else {
+        let user = new User({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+        });
 
-      let user = new User({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      });
+        const salt = await bcrypt.genSalt(10);
 
-      const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
 
-      user.password = await bcrypt.hash(password, salt);
+        await user.save();
 
-      await user.save();
+        const payload = {
+          user: {
+            id: user.id,
+          },
+        };
 
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        {
-          expiresIn: 36000,
-        },
-        (err, token) => {
-          if (err) {
-            res
-              .status(400)
-              .json({ msg: "An error occurred. Please try again." });
-          } else {
-            res.json({ token });
+        jwt.sign(
+          payload,
+          process.env.JWT_SECRET,
+          {
+            expiresIn: 60 * 60,
+          },
+          (err, token) => {
+            if (err) {
+              throw err;
+            } else {
+              res.json({ token });
+            }
           }
-        }
-      );
+        );
+      }
     } catch (error) {
       res
         .status(400)
