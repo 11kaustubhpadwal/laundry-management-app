@@ -58,7 +58,7 @@ router.post(
 
         jwt.sign(
           payload,
-          process.env.JWT_SECRET,
+          process.env.JWT_SECRET_PROD,
           {
             expiresIn: 60 * 60,
           },
