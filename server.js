@@ -11,7 +11,14 @@ const app = express();
 connectDB();
 
 // Enable CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,PUT,PATCH,POST",
+    preflightContinue: true,
+    optionsSuccessStatus: 204,
+  })
+);
 
 // Initialize middleware
 app.use(express.json({ extended: false }));
