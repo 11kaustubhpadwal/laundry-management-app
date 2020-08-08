@@ -62,8 +62,13 @@ router.post(
           expiresIn: 36000,
         },
         (err, token) => {
-          if (err) throw err;
-          res.json({ token });
+          if (err) {
+            res
+              .status(400)
+              .json({ msg: "An error occurred. Please try again." });
+          } else {
+            res.json({ token });
+          }
         }
       );
     } catch (error) {
