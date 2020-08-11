@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
+const EmployeeSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
@@ -18,18 +18,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  resetPasswordToken: {
+  employeeID: {
     type: String,
-    default: null,
-  },
-  resetPasswordExpires: {
-    type: Date,
-    default: null,
+    required: true,
+    unique: true,
   },
   role: {
     type: String,
-    default: "User",
+    default: "Employee",
   },
 });
 
-module.exports = mongoose.model("user", UserSchema);
+module.exports = mongoose.model("employee", EmployeeSchema);

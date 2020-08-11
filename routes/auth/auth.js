@@ -6,6 +6,7 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
+const Employee = require("../../models/Employee");
 
 // @route       GET /api/auth
 // @desc        Get logged in user
@@ -38,37 +39,65 @@ router.post(
 
     try {
       let user = await User.findOne({ email: email });
+      let employee = await Employee.findOne({ email: email });
 
-      if (!user) {
-        res.status(400).json({ msg: "Invalid credentials." });
-      }
+      if (user) {
+        let isMatch = await bcrypt.compare(password, user.password);
 
-      let isMatch = await bcrypt.compare(password, user.password);
-
-      if (!isMatch) {
-        res.status(400).json({ msg: "Invalid credentials." });
-      }
-
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET_PROD,
-        {
-          expiresIn: 60 * 60,
-        },
-        (err, token) => {
-          if (err) {
-            throw err;
-          } else {
-            res.json({ token });
-          }
+        if (!isMatch) {
+          res.status(400).json({ msg: "Invalid credentials." });
         }
-      );
+
+        const payload = {
+          user: {
+            id: user.id,
+          },
+        };
+
+        jwt.sign(
+          payload,
+          process.env.JWT_SECRET_PROD,
+          {
+            expiresIn: 60 * 60,
+          },
+          (err, token) => {
+            if (err) {
+              throw err;
+            } else {
+              res.json({ token, role: user.role });
+            }
+          }
+        );
+      } else if (employee) {
+        let isMatch = await bcrypt.compare(password, employee.password);
+
+        if (!isMatch) {
+          res.status(400).json({ msg: "Invalid credentials." });
+        }
+
+        const payload = {
+          user: {
+            id: employee.id,
+          },
+        };
+
+        jwt.sign(
+          payload,
+          process.env.JWT_SECRET_PROD,
+          {
+            expiresIn: 60 * 60,
+          },
+          (err, token) => {
+            if (err) {
+              throw err;
+            } else {
+              res.json({ token, role: employee.role });
+            }
+          }
+        );
+      } else {
+        res.status(400).json({ msg: "Invalid credentials." });
+      }
     } catch (error) {
       res.status(400).json({ msg: "Failed to login. Please try again." });
     }
