@@ -5,7 +5,6 @@ const { check, validationResult } = require("express-validator");
 const { v4: uuidv4 } = require("uuid");
 
 const Employee = require("../../models/Employee");
-const Order = require("../../models/Order");
 
 // @route       POST /api/employees
 // @desc        Register a new employee

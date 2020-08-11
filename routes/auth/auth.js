@@ -51,6 +51,7 @@ router.post(
         const payload = {
           user: {
             id: user.id,
+            role: "User",
           },
         };
 
@@ -78,6 +79,7 @@ router.post(
         const payload = {
           user: {
             id: employee.id,
+            role: "Employee",
           },
         };
 
