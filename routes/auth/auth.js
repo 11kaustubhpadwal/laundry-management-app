@@ -14,7 +14,17 @@ const Employee = require("../../models/Employee");
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
-    res.json(user);
+    const employee = await Employee.findById(req.user.id).select("-password");
+
+    if (user) {
+      res.json(user);
+    } else if (employee) {
+      res.json(employee);
+    } else {
+      res
+        .status(400)
+        .json({ msg: "Failed to load profile. Please try again." });
+    }
   } catch (error) {
     res.status(400).json({ msg: "Failed to load profile. Please try again." });
   }
