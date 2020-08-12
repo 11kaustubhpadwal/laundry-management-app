@@ -35,7 +35,7 @@ router.patch("/:orderID", auth, async (req, res) => {
         { new: true }
       );
 
-      res.json(order);
+      res.json({ msg: "The order has been cancelled successfully." });
     }
   } catch (error) {
     res
@@ -60,7 +60,7 @@ router.patch("/complete/:orderID", auth, async (req, res) => {
         { new: true }
       );
 
-      res.json(order);
+      res.json({ msg: "The order has been completed successfully." });
     }
   } catch (error) {
     res
